@@ -11,7 +11,8 @@ img: /img/ss_mdpreview.png
 
 ![Project screenshot](/img/gif_mdpreview.gif)
 
-Technologies used:  
+Technologies used:
+
 - React  
 - Sass
 

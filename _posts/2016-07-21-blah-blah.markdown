@@ -1,7 +1,0 @@
----
-layout: post
-title:  "Blah blah!"
-date:   2016-07-21 10:25:21 -0400
-categories: blah
----
-Here's some filler!

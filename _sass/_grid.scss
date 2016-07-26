@@ -2,13 +2,41 @@
   display: flex;
   flex-wrap: wrap;
   margin-left: -1em;
+  margin-bottom: 1em;
+  position: relative;
 }
 
 .Grid > .Grid-cell {
   // display: flex;
   flex: 1 0 calc(50% - 3em);
   margin: 1em 0 0 1em;
-  background: hsla(31, 15%, 50%, .1);
+  background: $brand-bg-color;
   border-radius: 3px;
   padding: 1em;
+  position: relative;
+}
+
+.thumbnail a span {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba( $brand-bg-color, 0.8);
+  color: $grey-color-dark;
+  padding: 40px;
+  text-align: center;
+}
+
+.thumbnail a:hover span {
+  display: block;
+}
+
+.caption {
+height: 100%;
+color: $caption_color;
+text-align: center;
+vertical-align: middle;
+font-size: $caption_font_sz;
 }

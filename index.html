@@ -16,7 +16,7 @@ layout: default
         <img src="{{ project.img }}"/>
       </div>
       <div class="Grid--2of3 project-title">
-        <h1>{{ project.title }}</h1>
+        <h2>{{ project.title }}</h2>
         <p>{{ project.description }}</p>
       </div>
       {% else %}
@@ -34,7 +34,7 @@ layout: default
 
   <h1 class="page-heading">Posts</h1>
 
-  <div class="Grid">
+  <div class="Grid darken">
     {% for post in site.posts %}
       <div class="post-list Grid-cell-wide">
         <div class="post-meta Grid--1of3">
@@ -43,9 +43,9 @@ layout: default
           </p>
         </div>
         <div class="Grid--2of3">
-          <a class="post-link" href="{{ post.url | prepend: site.baseurl }}"><p>
+          <a class="post-link" href="{{ post.url | prepend: site.baseurl }}"><h2>
               {{ post.title }}
-          </p></a>
+          </h2></a>
         </div>
       </div>
     {% endfor %}

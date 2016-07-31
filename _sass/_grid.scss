@@ -33,8 +33,13 @@
     flex: 0 0 100%;
   }
 
-  p, h1, h2 {
-    padding: 20px 20px 0px 20px;
+  h1, h2, p {
+    padding: 20px;
+  }
+
+// if a p follows an h1/h2, push them a little closer together
+  h1 ~ p, h2 ~ p {
+    margin-top: -40px;
   }
 
 }
@@ -81,17 +86,16 @@ font-size: $caption_font_sz;
 }
 
 // experimental color gradation
-$step: 1;
+$step: 2;
 @while $step <= 10 {
 
+  $darker: darken($brand-bg-color, ($step * 3%));
+
   // darkens color step by step
-  .darken .project:nth-child(#{$step}) {
-    $darker: darken($brand-bg-color, ($step * 3%));
+  .darken .project:nth-child(#{$step}),
+  .darken .post-list:nth-child(#{$step}) {
     background-color: $darker;
 
-    span {
-      background-color: rgba($darker, 0.8);
-    }
   }
 
   $step: $step + 1;

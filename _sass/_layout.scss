@@ -172,27 +172,29 @@
 }
 
 .page-heading {
-    font-size: 20px;
+    font-size: $large-font-size;
 }
 
-.post-list {
-    // margin-left: 0;
-    list-style: none;
+// .post-list {
+//     // margin-left: 0;
+//     list-style: none;
+//
+//     > li {
+//         margin-bottom: $spacing-unit;
+//     }
+// }
+//
+// .post-meta {
+//     font-size: $small-font-size;
+//     color: $meta-color;
+// }
+//
+// .post-link {
+//     display: block;
+//     font-size: 24px;
+// }
 
-    > li {
-        margin-bottom: $spacing-unit;
-    }
-}
 
-.post-meta {
-    font-size: $small-font-size;
-    color: $meta-color;
-}
-
-.post-link {
-    display: block;
-    font-size: 24px;
-}
 
 
 

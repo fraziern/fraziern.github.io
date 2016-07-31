@@ -4,32 +4,61 @@
   margin-left: -1em;
   margin-bottom: 1em;
   position: relative;
+  box-sizing: border-box;
 }
 
-.Grid > .Grid-cell {
-  // display: flex;
-  flex: 1 0 calc(50% - 3em);
+.Grid .Grid-cell-wide {
+  display: flex;
+  flex: auto;
   margin: 1em 0 0 1em;
   background: $brand-bg-color;
-  border-radius: 3px;
-  padding: 1em;
+  border-radius: 4px;
+  // padding: 1em;
   position: relative;
+  overflow: hidden;
+
+  .Grid--1of3 {
+    flex: 0 0 33.3333%;
+  }
+
+  .Grid--2of3 {
+    flex: 0 0 66.6666%;
+  }
+
+  .Grid--fit {
+    flex: 1;
+  }
+
+  .Grid--full {
+    flex: 0 0 100%;
+  }
+
+  p, h1, h2 {
+    padding: 20px 20px 0px 20px;
+  }
+
 }
 
-.thumbnail a span {
+img {
+  width: 100%;
+  height: auto;
+}
+
+a span {
   display: none;
   position: absolute;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
-  background: rgba( $brand-bg-color, 0.8);
+  // background: rgba( $brand-bg-color, 0.8);
   color: $grey-color-dark;
-  padding: 40px;
+  padding: 20px;
   text-align: center;
+  width: 33.3333%;
 }
 
-.thumbnail a:hover span {
+a:hover span {
   display: block;
 }
 
@@ -39,4 +68,31 @@ color: $caption_color;
 text-align: center;
 vertical-align: middle;
 font-size: $caption_font_sz;
+}
+
+@media (max-width: 635px) {
+  .project-img {
+    display: none;
+  }
+
+  .Grid .Grid-cell-wide .project-title {
+    flex: 0 0 100%;
+  }
+}
+
+// experimental color gradation
+$step: 1;
+@while $step <= 10 {
+
+  // darkens color step by step
+  .darken .project:nth-child(#{$step}) {
+    $darker: darken($brand-bg-color, ($step * 3%));
+    background-color: $darker;
+
+    span {
+      background-color: rgba($darker, 0.8);
+    }
+  }
+
+  $step: $step + 1;
 }

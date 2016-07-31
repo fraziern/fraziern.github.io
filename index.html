@@ -6,38 +6,47 @@ layout: default
 
   <h1 class="page-heading">Projects</h1>
 
-  <div class="project-list Grid">
+  <div class="project-list Grid darken">
     {% for project in site.projects %}
-    <div class="project Grid-cell">
-        <div class="thumbnail">
-            <a href="{{ site.baseurl }}{{ project.url }}">
-            {% if project.img %}
-            <img src="{{ project.img }}"/>
-            {% else %}
-            <div class="blankbox"></div>
-            {% endif %}
-            <span>
-                <h1>{{ project.title }}</h1>
-                <br/>
-                <p>{{ project.description }}</p>
-            </span>
-            </a>
-        </div>
-    </div>
+
+        <a class="project Grid-cell-wide" href="{{ site.baseurl }}{{ project.url }}">
+
+      {% if project.description %}
+      <div class="Grid--1of3 project-img">
+        <img src="{{ project.img }}"/>
+      </div>
+      <div class="Grid--2of3 project-title">
+        <h1>{{ project.title }}</h1>
+        <p>{{ project.description }}</p>
+      </div>
+      {% else %}
+      <div class="Grid--fit">
+        <img src="{{ project.img }}"/>
+      </div>
+      {% endif %}
+
+</a>
+
+
 
     {% endfor %}
   </div>
 
   <h1 class="page-heading">Posts</h1>
 
-  <div class="post-list Grid">
+  <div class="Grid">
     {% for post in site.posts %}
-      <div class="Grid-cell">
-        <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
-
-        <h2>
-          <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
-        </h2>
+      <div class="post-list Grid-cell-wide">
+        <div class="post-meta Grid--1of3">
+          <p>
+            {{ post.date | date: "%b %-d, %Y" }}
+          </p>
+        </div>
+        <div class="Grid--2of3">
+          <a class="post-link" href="{{ post.url | prepend: site.baseurl }}"><p>
+              {{ post.title }}
+          </p></a>
+        </div>
       </div>
     {% endfor %}
   </div>

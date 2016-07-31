@@ -4,6 +4,7 @@ title:  "1Vote Polling Full Stack App"
 date:   2016-07-17 10:25:21 -0400
 categories: javascript full-stack
 img: /img/ss_voting.jpg
+description: "A full stack single page web app for polling, with login and dataviz"
 ---
 
 Single Page App built from the ground up, with back-end API and React front-end.

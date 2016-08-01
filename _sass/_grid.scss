@@ -49,23 +49,26 @@ img {
   height: auto;
 }
 
-a span {
-  display: none;
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  // background: rgba( $brand-bg-color, 0.8);
-  color: $grey-color-dark;
-  padding: 20px;
-  text-align: center;
-  width: 33.3333%;
-}
+// *** This block was for a rollover overlay effect that's no longer in use
+// *** Delete this when possible. 
 
-a:hover span {
-  display: block;
-}
+// a span {
+//   display: none;
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   bottom: 0;
+//   right: 0;
+//   // background: rgba( $brand-bg-color, 0.8);
+//   color: $grey-color-dark;
+//   padding: 20px;
+//   text-align: center;
+//   width: 33.3333%;
+// }
+//
+// a:hover span {
+//   display: block;
+// }
 
 .caption {
 height: 100%;

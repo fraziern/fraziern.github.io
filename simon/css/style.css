@@ -1,0 +1,173 @@
+body {
+  font-family: 'Patua One', cursive;
+}
+.title {
+  width: 300px;
+  margin: 0 auto;
+  font-size: 60pt;
+  text-align: center;
+  color: #E18728;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+.container {
+  position: relative;
+  padding-top: 20px;
+}
+.btn-container {
+  width: 300px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+.side-container {
+  width: 300px;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  margin: 0 auto;
+}
+.level-box {
+  border-radius: 15px;
+  height: 110px;
+  width: 110px;
+  flex: 1;
+  margin-right: 10px;
+  margin-left: 10px;
+  background: #EADDEE;
+  text-align: center;
+  font-size: 20pt;
+  padding-top: 10px;
+  -webkit-box-shadow: 0px 7px 19px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 7px 19px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 7px 19px 0px rgba(0, 0, 0, 0.75);
+}
+#hud-level {
+  font-size: 40pt;
+  margin-top: -15px
+}
+.btn, btn:focus {
+  margin-bottom: 10px;
+  background: none;
+  color: black;
+  border: none;
+  flex: 1;
+  text-align: center;
+  padding: 0;
+}
+.btn:hover {
+  background: #EADDEE;
+  -webkit-box-shadow: 0px 7px 19px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 7px 19px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 7px 19px 0px rgba(0, 0, 0, 0.75);
+  color: black;
+}
+.row {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+.sbutton {
+  color: white;
+  width: 150px;
+  height: 150px;
+  margin: 5px;
+  box-sizing: border-box;
+  font-size: 0pt;
+  text-align: center;
+  background-image: url('http://image.shutterstock.com/z/stock-vector-lucha-libre-luchador-mexican-wrestling-masks-color-vector-icons-set-character-face-person-sport-327187910.jpg');
+  background-repeat: no-repeat;
+  background-size: 500px 500px;
+  -webkit-transition: -webkit-transform 1s ease;
+  transition: transform 0.3s ease;
+}
+#btn0 {
+  /*  background: #F24950;*/
+  background-position: -30px -12px;
+}
+#btn1 {
+  /*  background: #716A4E;*/
+  background-position: -30px -155px;
+}
+#btn2 {
+  /*  background: #D8A915;*/
+  background-position: -30px -310px;
+}
+#btn3 {
+  /*  background: #593332;*/
+  background-position: -175px -163px;
+}
+.sbutton.highlight, .sbutton.highlight.disabled:hover {
+  -webkit-filter: saturate(8);
+  filter: saturate(8);
+  transform: scale(0.95);
+  -webkit-transform: scale(0.95);
+  -ms-transform: scale(0.95);
+}
+.sbutton.highlight {
+  cursor: pointer;
+}
+.sbutton:hover {
+  -webkit-filter: saturate(8);
+  filter: saturate(8);
+  cursor: pointer;
+}
+.sbutton.disabled:hover {
+  filter: none;
+  -webkit-filter: none;
+  cursor: auto;
+}
+.announce {
+  font-size: 48pt;
+  position: absolute;
+  top: 150px;
+  text-align: center;
+  margin: 0 auto;
+  width: 300px;
+  opacity: 0;
+  z-index: -1000;
+  color: #FF4D09;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+.show-announce {
+  -webkit-transition: -webkit-transform 2s ease, opacity 2s ease;
+  transition: transform 2s ease, opacity 2s ease;
+  opacity: 1;
+  -webkit-transform: scale(2);
+  -ms-transform: scale(2);
+  transform: scale(2);
+  z-index: 0;
+}
+.loading {
+  display = none;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+
+@media all and (max-width: 320px) {
+.title {
+  margin-top: -10px;
+  margin-bottom: -20px;
+}
+  .container {
+    padding-top: 0px;
+  }
+  #hud-level {
+    font-size: 30pt;
+    margin-top: -15px
+  }
+  .level-box {
+    border-radius: 15px;
+    height: 80px;
+    width: 100px;
+    flex: 1;
+    margin-right: 10px;
+    margin-left: 10px;
+    background: #EADDEE;
+    text-align: center;
+    font-size: 18pt;
+    padding-top: 5px;
+    -webkit-box-shadow: 0px 7px 19px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 7px 19px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 7px 19px 0px rgba(0, 0, 0, 0.75);
+  }
+}

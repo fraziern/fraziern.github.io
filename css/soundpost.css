@@ -1,3 +1,7 @@
+audio {
+  margin-bottom: 20px;
+}
+
 /*Define styles for the button demos*/
 
 .demo-container {
@@ -87,7 +91,7 @@
 
 .img-container {
   position: absolute;
-  background-image: url("waveform.jpg");
+  background-image: url("/img/waveform.jpg");
   height: 20px;
   width: 58px;
   background-color: white;

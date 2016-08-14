@@ -9,17 +9,19 @@ audio {
   height: 200px;
   text-align: center;
   margin: 0 auto;
-  margin-top: 100px;
+  margin-top: 50px;
+  margin-bottom: 50px;
   background: #e1d1fc;
   position: relative;
 }
 
 .start-message {
   position: absolute;
-  text-align: center;
+  text-align: left;
   width: 500px;
   height: 200px;
-  padding-top: 100px;
+  padding-top: 10px;
+  padding-left: 10px;
   cursor: pointer;
 }
 
@@ -33,13 +35,16 @@ audio {
   outline: none;
   background: #d18adb;
   color: white;
-  display: none;
   cursor: pointer;
 }
 
 .playDrop:hover {
   background: white;
   color: black;
+}
+
+#filterButton {
+  display: none;
 }
 
 /*Define styles for the stacked waveform CSS animation*/
@@ -51,6 +56,9 @@ audio {
   position: relative;
   overflow: hidden;
   font: 10pt "Open Sans", sans-serif;
+  margin: 0 auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .btn-container {
@@ -71,6 +79,7 @@ audio {
   text-decoration: none;
   border: none;
   outline: none;
+  cursor: pointer;
 }
 
 .btn-container > button:hover, .btn-container > button:focus {
@@ -98,8 +107,8 @@ audio {
   background-size: cover;
   top: 100px;
   border-radius: 5px 0 0 5px;
-  transition: all 3s ease-in-out;
-  -webkit-transition: all 3s ease-in-out;
+  transition: all 1s ease-in-out;
+  -webkit-transition: all 1s ease-in-out;
 }
 
 #img-1 {

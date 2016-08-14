@@ -50,7 +50,7 @@ img {
 }
 
 // *** This block was for a rollover overlay effect that's no longer in use
-// *** Delete this when possible. 
+// *** Delete this when possible.
 
 // a span {
 //   display: none;
@@ -71,11 +71,13 @@ img {
 // }
 
 .caption {
-height: 100%;
-color: $caption_color;
-text-align: center;
-vertical-align: middle;
-font-size: $caption_font_sz;
+  height: 100%;
+  color: $caption_color;
+  text-align: center;
+  vertical-align: middle;
+  font-size: $caption_font_sz;
+  margin: 0 auto;
+  margin-bottom: 20px;
 }
 
 @media (max-width: 635px) {

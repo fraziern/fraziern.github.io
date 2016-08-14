@@ -1,0 +1,160 @@
+/*Define styles for the button demos*/
+
+.demo-container {
+  width: 500px;
+  height: 200px;
+  text-align: center;
+  margin: 0 auto;
+  margin-top: 100px;
+  background: #e1d1fc;
+  position: relative;
+}
+
+.start-message {
+  position: absolute;
+  text-align: center;
+  width: 500px;
+  height: 200px;
+  padding-top: 100px;
+  cursor: pointer;
+}
+
+.playDrop {
+  border-radius: 50%;
+  border: 2px solid grey;
+  height: 70px;
+  width: 70px;
+  margin-top: 65px;
+  margin-left: 10px;
+  outline: none;
+  background: #d18adb;
+  color: white;
+  display: none;
+  cursor: pointer;
+}
+
+.playDrop:hover {
+  background: white;
+  color: black;
+}
+
+/*Define styles for the stacked waveform CSS animation*/
+
+.animation-container {
+  width: 280px;
+  height: 190px;
+  background-color: #f1f4f1;
+  position: relative;
+  overflow: hidden;
+  font: 10pt "Open Sans", sans-serif;
+}
+
+.btn-container {
+  display: flex;
+  width: 200px;
+  margin: 0 auto;
+  margin-top: 10px;
+}
+
+.btn-container > button {
+  border-radius: 5px;
+  height: 20px;
+  width: 115px;
+  border-radius: 5px;
+  font-family: Arial;
+  color: #ffffff;
+  background: #3498db;
+  text-decoration: none;
+  border: none;
+  outline: none;
+}
+
+.btn-container > button:hover, .btn-container > button:focus {
+  background: #3cb0fd;
+  text-decoration: none;
+}
+
+.btn-container > .selected {
+  background: #3cb0fd;
+  text-decoration: none;
+}
+
+.img-meta-container {
+  position: relative;
+  width: 280px;
+  margin-top: -10px;
+}
+
+.img-container {
+  position: absolute;
+  background-image: url("waveform.jpg");
+  height: 20px;
+  width: 58px;
+  background-color: white;
+  background-size: cover;
+  top: 100px;
+  border-radius: 5px 0 0 5px;
+  transition: all 3s ease-in-out;
+  -webkit-transition: all 3s ease-in-out;
+}
+
+#img-1 {
+  left: 20px;
+}
+
+#img-2 {
+  left: 80px;
+}
+
+#img-3 {
+  left: 140px;
+}
+
+#img-3 {
+  width: 110px;
+  border-radius: 5px;
+}
+
+.tick-container {
+  position: absolute;
+  top: 125px;
+}
+
+#tick-1 {
+  left: 20px;
+}
+
+#tick-2 {
+  left: 80px;
+}
+
+#tick-3 {
+  left: 140px;
+}
+
+.tick {
+  background: #3498db;
+  height: 10px;
+  width: 3px;
+  position: absolute;
+}
+
+.click-label {
+  position: absolute;
+  top: 12px;
+}
+
+.img-1--expanded {
+  width: 110px;
+  border-radius: 5px;
+}
+
+.img-2--expanded {
+  width: 110px;
+  top: 70px;
+  border-radius: 5px;
+}
+
+.img-3--expanded {
+  top: 40px;
+}

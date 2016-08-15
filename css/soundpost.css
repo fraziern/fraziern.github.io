@@ -47,6 +47,12 @@ audio {
   display: none;
 }
 
+@media (max-width: 635px) {
+  .demo-container {
+    width: 100%;
+  }
+}
+
 /*Define styles for the stacked waveform CSS animation*/
 
 .animation-container {

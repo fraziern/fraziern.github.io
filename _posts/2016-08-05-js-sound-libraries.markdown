@@ -180,9 +180,9 @@ Web Audio allows you to add several different types of pro-level effects to your
   - [StereoPannerNodes](https://developer.mozilla.org/en-US/docs/Web/API/StereoPannerNode) allow for panning left and right
   - [AnalyserNodes](https://developer.mozilla.org/en-US/docs/Web/API/AnalyserNode) enable data analysis and visualization
 
-What if, I thought, you used a BiquadFilterNode in conjunction with an event handler that tracks mouse proximity to a button? You could change a sound based on how close to the button your mouse pointer is. How cool would that be?
+What if, I thought, you used a BiquadFilterNode in conjunction with an event handler that tracks mouse proximity to a button? You could change a sound based on how close to the button your mouse pointer is. [Moog-style filter sweeps](https://www.youtube.com/watch?v=HieClHTxid0) in your UI - how cool would that be?
 
-It turns out that SoundJS makes this, too, relatively easy (although tweaking the library's Web Audio context is not well documented). Using some of the more [advanced](http://createjs.com/docs/soundjs/classes/WebAudioPlugin.html) parts of the API, I found that you can "insert" a filter into SoundJS's Web Audio setup, and fiddle to your heart's content. Adjust the filter based on mouse movements, and voila, a proximity filter:
+It turns out that SoundJS makes this, too, relatively easy (although tweaking the library's Web Audio context is not as well documented as the rest of the API). Using some of the more [advanced](http://createjs.com/docs/soundjs/classes/WebAudioPlugin.html) parts of the API, I found that you can "insert" a filter into SoundJS's Web Audio setup, and fiddle to your heart's content. Adjust the filter based on mouse movements, and voila, a proximity filter:
 
 <!-- proximity filter demo follows -->
 <div class="demo-container">

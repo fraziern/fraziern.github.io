@@ -1,6 +1,5 @@
-audio {
-  margin-bottom: 20px;
-}
+
+/* EVERYTHING BELOW HERE HAS BEEN SUPERCEDED BY CODEPEN EMBEDS */
 
 /*Define styles for the button demos*/
 
@@ -31,7 +30,7 @@ audio {
   height: 70px;
   width: 70px;
   margin-top: 65px;
-  margin-left: 10px;
+  margin-right: 10px;
   outline: none;
   background: #d18adb;
   color: white;
@@ -41,6 +40,10 @@ audio {
 .playDrop:hover {
   background: white;
   color: black;
+}
+
+.playDrop:last-child {
+  margin-right: 0px;
 }
 
 #filterButton {

@@ -64,9 +64,10 @@ function playSound () {
 
 <audio id="snare2" src="/audio/snare-2.mp3"></audio>
 
-<div class="demo-container">
-  <button onclick="playHTMLSound();" class="playDrop">Snare</button>
-</div>
+<p data-height="230" data-theme-id="light" data-slug-hash="akroRZ" data-default-tab="result" data-user="fraziern" data-embed-version="2" class="codepen">See the Pen <a href="http://codepen.io/fraziern/pen/akroRZ/">HTML Demo</a> by Nick Frazier (<a href="http://codepen.io/fraziern">@fraziern</a>) on <a href="http://codepen.io">CodePen</a>.</p>
+<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
+
+<p></p>
 
 Try clicking twice in succession, though, and you will immediately experience one of the major drawbacks to HTML audio. Playing a sound more than once is tricky. If you used only the `play()` function and one source, the browser will wait until it's done playing the sound before allowing you to trigger another. In fact even with multiple sources, HTML audio has limited ability to play several sounds at once.
 
@@ -81,9 +82,10 @@ function playSound () {
 
 Now we should be able to hit those rapid fire snares like the next 9th Wonder:
 
-<div class="demo-container">
-  <button onclick="stopPlayHTMLSound();" class="playDrop">Snare</button>
-</div>
+<p data-height="230" data-theme-id="light" data-slug-hash="pbYzxk" data-default-tab="result" data-user="fraziern" data-embed-version="2" class="codepen">See the Pen <a href="http://codepen.io/fraziern/pen/pbYzxk/">HTML Demo Improved</a> by Nick Frazier (<a href="http://codepen.io/fraziern">@fraziern</a>) on <a href="http://codepen.io">CodePen</a>.</p>
+<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
+
+<p></p>
 
 # Audio Formats: A Side Note
 
@@ -109,29 +111,10 @@ Enter the [Web Audio API.](https://developer.mozilla.org/en-US/docs/Web/API/Web_
 Using Web Audio instead of HTML Audio, we can create a button click sound that layers on top of itself rather than clipping, as this visualization demonstrates:
 
 <!-- stacked waveform css animation follows -->
-<div class="animation-container">
-  <div class="btn-container">
-    <button class="btn selected" id="htmlAudio" onclick="htmlAudioClick();">HTML Audio</button>
-    <button class="btn" id="webAudio" onclick="webAudioClick();">Web Audio</button>
-  </div>
-  <div class="img-meta-container">
-    <div class="img-container" id="img-1"></div>
-    <div class="img-container" id="img-2"></div>
-    <div class="img-container" id="img-3"></div>
-    <div class="tick-container" id="tick-1">
-      <div class="tick"></div>
-      <div class="click-label">Click!</div>
-    </div>
-    <div class="tick-container" id="tick-2">
-      <div class="tick"></div>
-      <div class="click-label">Click!</div>
-    </div>
-    <div class="tick-container" id="tick-3">
-      <div class="tick"></div>
-      <div class="click-label">Click!</div>
-    </div>
-  </div>
-</div>
+<p data-height="270" data-theme-id="light" data-slug-hash="qNvWrB" data-default-tab="result" data-user="fraziern" data-embed-version="2" class="codepen">See the Pen <a href="http://codepen.io/fraziern/pen/qNvWrB/">Web Audio Viz</a> by Nick Frazier (<a href="http://codepen.io/fraziern">@fraziern</a>) on <a href="http://codepen.io">CodePen</a>.</p>
+<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
+
+<p></p>
 
 There are a couple catches, though, one of which I ran up against immediately: Web Audio is complicated. If you crack open one of the many excellent API tutorials online (I recommend Boris Smus's book [Web Audio API](http://chimera.labs.oreilly.com/books/1234000001552), the entire text of which is available for free on the O'Reilly site) the first thing you'll notice is that merely playing a single sound can require a couple dozen lines of code.
 
@@ -151,10 +134,10 @@ function playSound () {
 
 Try it out and listen to the difference (and sonic improvement):
 
-<div class="demo-container">
-  <button onclick="stopPlayHTMLSound();" class="playDrop">HTML</button>
-  <button onclick="webAudioSound();" class="playDrop">SoundJS</button>
-</div>
+<p data-height="230" data-theme-id="light" data-slug-hash="GqZKNo" data-default-tab="result" data-user="fraziern" data-embed-version="2" class="codepen">See the Pen <a href="http://codepen.io/fraziern/pen/GqZKNo/">GqZKNo</a> by Nick Frazier (<a href="http://codepen.io/fraziern">@fraziern</a>) on <a href="http://codepen.io">CodePen</a>.</p>
+<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
+
+<p></p>
 
 The other major catch is that the Web Audio standard is still in flux - it's currently a working draft, and there is no support in Internet Explorer.
 
@@ -185,12 +168,12 @@ What if, I thought, you used a BiquadFilterNode in conjunction with an event han
 It turns out that SoundJS makes this, too, relatively easy (although tweaking the library's Web Audio context is not as well documented as the rest of the API). Using some of the more [advanced](http://createjs.com/docs/soundjs/classes/WebAudioPlugin.html) parts of the API, I found that you can "insert" a filter into SoundJS's Web Audio setup, and fiddle to your heart's content. Adjust the filter based on mouse movements, and voila, a proximity filter:
 
 <!-- proximity filter demo follows -->
-<div class="demo-container">
-  <div class="start-message">CLICK TO START</div>
-  <button type="button" name="button" class="playDrop" id="filterButton">Click Me</button>
-</div>
+<p data-height="230" data-theme-id="light" data-slug-hash="oLVvdg" data-default-tab="result" data-user="fraziern" data-embed-version="2" class="codepen">See the Pen <a href="http://codepen.io/fraziern/pen/oLVvdg/">SoundJS Filter Demo</a> by Nick Frazier (<a href="http://codepen.io/fraziern">@fraziern</a>) on <a href="http://codepen.io">CodePen</a>.</p>
+<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
 
-If you want to experiment yourself, my SoundJS code is available [here.](/js/soundpost.js) The proximity algorithm is based on [this](https://css-tricks.com/snippets/jquery/calculate-distance-between-mouse-and-element/) CSS-Tricks snippet from Chris Coyier.
+<p></p>
+
+If you want to experiment yourself, check out my SoundJS code in the above pen. The proximity algorithm is based on [this](https://css-tricks.com/snippets/jquery/calculate-distance-between-mouse-and-element/) CSS-Tricks snippet from Chris Coyier.
 
 # The Sky's the Limit
 
@@ -203,10 +186,3 @@ With Web Audio, web developers seem to finally have a deep and powerful toolbox 
 [Designing Sound](http://designingsound.org/): Sound design inspiration from the masters.
 
 [Chrome Experiments](https://www.chromeexperiments.com/): Another amazing collection of design (both visual and auditory) inspiration.
-
-
-<audio id="snare" src="/audio/snare-2.mp3" preload="auto"></audio>
-
-<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
-<script src="https://code.createjs.com/soundjs-0.6.2.min.js"></script>
-<script src="/js/soundpost.js"></script>

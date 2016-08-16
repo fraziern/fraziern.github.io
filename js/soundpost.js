@@ -1,3 +1,5 @@
+// NOTE THIS DOC HAS BEEN SUPERCEDED - THIS IS ALL ADDED TO CODEPEN EMBEDS INSTEAD
+
 // CSS waveform animation functions
 function htmlAudioClick() {
   document.getElementById("img-1").className = "img-container";

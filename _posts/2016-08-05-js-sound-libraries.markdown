@@ -56,7 +56,7 @@ events using this interface looks like this:
 
 {% highlight javascript %}
 function playSound () {
-  document.getElementById("snare2").play();
+  document.getElementById("snare").play();
 }
 {% endhighlight %}
 

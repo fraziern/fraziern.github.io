@@ -177,9 +177,9 @@ If you want to experiment yourself, check out my SoundJS code in the above pen. 
 
 # The Sky's the Limit
 
-With Web Audio, web developers seem to finally have a deep and powerful toolbox for designing and manipulating audio. It's also ripe for developing new ideas and techniques, as it's really just beginning to be incorporated into modern web user experiences. My own explorations scratch the surface. I'm continuing to search for new ways to engage others, and I look forward to seeing where things go next.
+With Web Audio, web developers seem to finally have a deep and powerful toolbox for designing and manipulating audio. It's also ripe for developing new ideas and techniques, as it's really just beginning to be incorporated into modern web user experiences. My own explorations scratch the surface. I'm continuing to search for new ways to engage others with sound, and I look forward to seeing where things go next.
 
-# Additional References
+# Additional Resources
 
 [SoundJS Visualizer Demo](http://createjs.com/demos/soundjs/webaudionodeinsertion): The source code for this demo is the best resource if you want to start pulling apart the SoundJS Web Audio graph
 

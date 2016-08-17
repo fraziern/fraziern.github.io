@@ -1,5 +1,6 @@
 .home .Grid {
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
   margin-left: -1em;
   margin-bottom: 1em;
@@ -9,11 +10,11 @@
 
 .Grid .Grid-cell-wide {
   display: flex;
+  flex-direction: row;
   flex: auto;
   margin: 1em 0 0 1em;
   background: $brand-bg-color;
   border-radius: 4px;
-  // padding: 1em;
   position: relative;
   overflow: hidden;
 
@@ -37,7 +38,7 @@
     padding: 20px;
   }
 
-// if a p follows an h1/h2, push them a little closer together
+/* if a p follows an h1/h2, push them a little closer together */
   h1 ~ p, h2 ~ p {
     margin-top: -40px;
   }
@@ -48,27 +49,6 @@ img {
   width: 100%;
   height: auto;
 }
-
-// *** This block was for a rollover overlay effect that's no longer in use
-// *** Delete this when possible.
-
-// a span {
-//   display: none;
-//   position: absolute;
-//   top: 0;
-//   left: 0;
-//   bottom: 0;
-//   right: 0;
-//   // background: rgba( $brand-bg-color, 0.8);
-//   color: $grey-color-dark;
-//   padding: 20px;
-//   text-align: center;
-//   width: 33.3333%;
-// }
-//
-// a:hover span {
-//   display: block;
-// }
 
 .caption {
   height: 100%;
@@ -90,13 +70,13 @@ img {
   }
 }
 
-// experimental color gradation
+/* experimental color gradation */
 $step: 2;
 @while $step <= 10 {
 
   $darker: darken($brand-bg-color, ($step * 3%));
 
-  // darkens color step by step
+  /* darkens color step by step */
   .darken .project:nth-child(#{$step}),
   .darken .post-list:nth-child(#{$step}) {
     background-color: $darker;

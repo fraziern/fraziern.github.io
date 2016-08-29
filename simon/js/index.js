@@ -155,6 +155,18 @@ $(function () {
     steps = getRandomGame();
 
   // Event Handlers
+  $("#btn-restart").hover(function () {
+    $(".restart-text").slideDown(200);
+  }, function () {
+    $(".restart-text").slideUp(200);
+  });
+
+  $("#btn-strict").hover(function () {
+    $(".strict-text").slideDown(200);
+  }, function () {
+    $(".strict-text").slideUp(200);
+  });
+
   $("#btn-restart").click(function () {
     gameController.startGame();
   });

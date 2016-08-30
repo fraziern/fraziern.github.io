@@ -72,9 +72,9 @@
 
 /* experimental color gradation */
 $step: 2;
-@while $step <= 10 {
+@while $step <= 20 {
 
-  $darker: darken($brand-bg-color, ($step * 3%));
+  $darker: darken($brand-bg-color, ($step * 2%));
 
   /* darkens color step by step */
   .darken .project:nth-child(#{$step}),

@@ -19,4 +19,4 @@ Technologies used:
 
 Code at  {% include icon-github.html username="fraziern" %} / [JS-Simon](https://github.com/fraziern/JS-Simon)
 
-Live demo at [nickfrazier.com](http://www.nickfrazier.com/simon/)
+[Live demo](/simon/)

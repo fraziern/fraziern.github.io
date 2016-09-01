@@ -27,7 +27,6 @@ Front-end Technologies used:
 - ImmutableJS
 - D3.js Data Viz
 - jQuery
-- Passport
 
 Back-end Technologies Used:
 --------------------------
@@ -36,6 +35,8 @@ Back-end Technologies Used:
 - Mongoose
 - Node.js
 - Express
+- Passport
 
+Live demo at [Heroku](https://voting-nrf.herokuapp.com/).
 
 Code at  {% include icon-github.html username="fraziern" %} / [voting](https://github.com/fraziern/voting)

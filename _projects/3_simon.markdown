@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Lucha Libre Simon Game"
-date:   2016-07-17 10:25:21 -0400
+date:   2016-07-12 10:25:21 -0400
 categories: javascript frontend game
 img: /img/ss_simon.jpg
 description: "Web simon game, now with extra lucha."

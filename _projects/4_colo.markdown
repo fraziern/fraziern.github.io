@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Colo Color Recipebook"
-date:   2016-07-17 10:25:21 -0400
+date:   2016-07-11 10:25:21 -0400
 categories: react sass javascript frontend
 img: /img/ss_colo.png
 description: "They wanted a Reactified recipe book. I created one for colors. I don't cook that much."

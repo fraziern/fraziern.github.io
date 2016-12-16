@@ -7,7 +7,8 @@ layout: default
   <h1 class="page-heading">Projects</h1>
 
   <div class="project-list Grid darken">
-    {% for project in site.projects %}
+    {% assign projects = (site.projects | sort: 'date') | reverse %}
+    {% for project in projects %}
 
         <a class="project Grid-cell-wide" href="{{ site.baseurl }}{{ project.url }}">
 

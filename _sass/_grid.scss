@@ -43,10 +43,13 @@
     margin-top: -40px;
   }
 
-  a {
-      color: $text-color;
-  }
+}
 
+/* Override link color in project list and post list */
+.project-list, .post-list {
+    a {
+        color: $text-color;
+    }
 }
 
 // img {

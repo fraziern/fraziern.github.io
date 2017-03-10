@@ -17,7 +17,7 @@ My starting point was one of nature's most amazing mathematical tricks - the Fib
 
 ![sunflower](/img/bp/sunflower.jpg)
 
-I had long wanted to tinker with this design and Joshua's class struck me as the perfect setting. Helpfully, there are several excellent sources online for the basic algorithm to generate the spiral, including (add stuff here).
+I had long wanted to tinker with this design and Joshua's class struck me as the perfect setting. Helpfully, there are several excellent sources online for the basic algorithm to generate the spiral (see below).
 
 Joshua devoted a section of the class to color - particularly tools and techniques for developing a palette. He's a big fan of finding a color combination that works already, and "ripping it off." So using some of his recommended tools, I did just that. I took a background from the old TV show "Soul Train" and sampled the dominant colors for my project:
 

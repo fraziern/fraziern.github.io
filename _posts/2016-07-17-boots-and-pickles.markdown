@@ -31,7 +31,7 @@ Using some stock boots and pickles images, I hand-traced a few drawings on an iP
 
 ![bootsPicklesTest](/img/bp/render-000066.jpg)
 
-The spiral algorithm came next, but the code I had come up with turned out to be highly sensitive to initial settings (in other words, it was finicky). Rather than it being a tedious challenge, though, its quirky nature opened up the possibility of endless designs. I built in a little randomness to the settings, and once I had the ranges dialed in and a way to speed up the feedback loop, things started getting fun:
+The spiral algorithm came next. The initial calculations are based on [this](https://krazydad.com/tutorials/circles_js/) excellent tutorial by Jim Bumgardner. The code I built off that base turned out to be highly sensitive to initial settings (in other words, it was finicky). Rather than it being a tedious challenge, though, its quirky nature opened up the possibility of endless designs. I built in a little randomness to the settings, and once I had the ranges dialed in and a way to speed up the feedback loop, things started getting fun:
 
 ![bootsPickles2](/img/bp/render-000064-raw.jpg)
 

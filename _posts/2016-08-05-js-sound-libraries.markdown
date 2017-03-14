@@ -66,7 +66,7 @@ function playSound () {
 
 <audio id="snare2" src="/audio/snare-2.mp3"></audio>
 
-<p data-height="230" data-theme-id="light" data-slug-hash="akroRZ" data-default-tab="result" data-user="fraziern" data-embed-version="2" class="codepen">See the Pen <a href="http://codepen.io/fraziern/pen/akroRZ/">HTML Demo</a> by Nick Frazier (<a href="http://codepen.io/fraziern">@fraziern</a>) on <a href="http://codepen.io">CodePen</a>.</p>
+<p data-height="350" data-theme-id="light" data-slug-hash="akroRZ" data-default-tab="result" data-user="fraziern" data-embed-version="2" class="codepen">See the Pen <a href="http://codepen.io/fraziern/pen/akroRZ/">HTML Demo</a> by Nick Frazier (<a href="http://codepen.io/fraziern">@fraziern</a>) on <a href="http://codepen.io">CodePen</a>.</p>
 <script async src="//assets.codepen.io/assets/embed/ei.js"></script>
 
 <p></p>

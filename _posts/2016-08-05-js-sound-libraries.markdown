@@ -7,6 +7,8 @@ categories: javascript audio ui
 
 <link rel="stylesheet" href="/css/soundpost.css">
 
+*A version of this story is published on Medium [here](https://medium.freecodecamp.com/web-audio-for-the-user-interface-1592687f898c#.nernw0grc).*
+
 When people my age hear the phrase "web audio", they probably think of Geocities sites
 of the 90's with irritating sound loops playing in the background. The possibilities then were
 limited, and sound was quickly abandoned as a component of most web experiences.

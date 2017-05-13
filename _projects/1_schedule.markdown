@@ -11,7 +11,7 @@ Single Page App built from the ground up, with back-end API and React front-end.
 
 **This app is currently in active use by Raleigh Moravian Church!**
 
-![Project screenshot](/img/gif_sched1.gif)
+![Project screenshot](/img/gif_sched3.gif)
 <div class="caption">Admin page shown.</div>
 
 My church had been using a Google Docs spreadsheet to solicit and manage signups for each Sunday's volunteers, but there were several pain points from both the administrative end, and on the part of the volunteers who used the page to sign up:
@@ -25,10 +25,14 @@ I developed an online signup sheet app that attempted to reduce friction involve
 
 - Primary design principle is ease of use for non-technical and older users: large type, simple layout, muted colors
 - For volunteers, no login requirement and one-click signup with autosave lowers as many barriers as possible
+- Sanitized inputs and back-end validation to ensure security and data integrity
 - Admin view includes full editing and filtering options
 - Streamlined responsive layout designed for "mobile first"
 - Signup days and slots within days can be added, edited, deleted easily from desktop or mobile
 - Reports page for admins includes filterable data visualizations to assist with planning and volunteer appreciation strategy
+
+![Reports screenshot](/img/gif_sched4.gif)
+<div class="caption">Reports page shown.</div>
 
 
 Front-end technologies used include:

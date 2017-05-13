@@ -6,7 +6,6 @@ categories: javascript full-stack
 img: /img/ss_sched.jpg
 description: "A single page app for managing church volunteer signups"
 ---
-
 Single Page App built from the ground up, with back-end API and React front-end.
 
 **This app is currently in active use by Raleigh Moravian Church!**
@@ -57,3 +56,5 @@ Back-end technologies used include:
 Built with Webpack and Babel
 
 Code at  {% include icon-github.html username="fraziern" %} / [schedule](https://github.com/fraziern/schedule)
+
+Last updated: May 13, 2017

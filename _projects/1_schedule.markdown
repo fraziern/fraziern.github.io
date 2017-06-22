@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Church Volunteer Signup Sheet"
-date:   2016-11-15 10:25:21 -0400
+date:   2017-05-13 10:25:21 -0400
 categories: javascript full-stack
 img: /img/ss_sched.jpg
 description: "A single page app for managing church volunteer signups"

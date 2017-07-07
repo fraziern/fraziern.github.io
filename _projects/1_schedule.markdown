@@ -33,6 +33,15 @@ I developed an online signup sheet app that attempted to reduce friction involve
 ![Reports screenshot](/img/gif_sched4.gif)
 <div class="caption">Reports page shown.</div>
 
+Responsive CSS ensures a great experience on mobile, tablet, or desktop screens.
+
+![Mobile screenshot](/img/ss_schedule-mobile.png)
+<div class="caption">Mobile view</div>
+
+Performance
+-----------
+
+I went through a performance-improvement cycle after the codebase had stabilized somewhat. The production bundle had grown to 1.2 MB, with load times of up to 8 seconds in my tests. By profiling the package sizes, trimming a few unnecessary modules with Webpack's IgnorePlugin and DedupePlugin, adding server-level compression, and using [code-splitting](http://moduscreate.com/code-splitting-for-react-router-with-es6-imports/), I was able to reduce that down to 168kb (!). In post-diet tests, total load times for the main page were under one second with cache, and around 1.5 seconds without.
 
 Front-end technologies used include:
 ---------------------------
@@ -55,6 +64,6 @@ Back-end technologies used include:
 
 Built with Webpack and Babel
 
-Code at  {% include icon-github.html username="fraziern" %} / [schedule](https://github.com/fraziern/schedule)
+Code at {% include icon-github.html username="fraziern" %} / [schedule](https://github.com/fraziern/schedule)
 
 Last updated: May 13, 2017

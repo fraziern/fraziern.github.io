@@ -41,7 +41,7 @@ Responsive CSS ensures a great experience on mobile, tablet, or desktop screens.
 Performance
 -----------
 
-I went through a performance-improvement cycle after the codebase had stabilized somewhat. The production bundle had grown to 1.2 MB, with load times of up to 8 seconds in my tests. By profiling the package sizes, trimming a few unnecessary modules with Webpack's IgnorePlugin and DedupePlugin, adding server-level compression, and using [code-splitting](http://moduscreate.com/code-splitting-for-react-router-with-es6-imports/), I was able to reduce that down to 168kb (!). In post-diet tests, total load times for the main page were under one second with cache, and around 1.5 seconds without.
+I went through a performance-improvement cycle after the codebase had stabilized somewhat. The production bundle had grown to 1.2 MB, with load times of up to 8 seconds in my tests. By profiling the package sizes, trimming a few unnecessary modules with Webpack's IgnorePlugin and DedupePlugin, adding server-level compression, and using [code-splitting](https://github.com/ReactTraining/react-router/blob/master/packages/react-router-dom/docs/guides/code-splitting.md), I was able to reduce that down to 168kb (!). In post-diet tests, total load times for the main page were under one second with cache, and around 1.5 seconds without.
 
 Front-end technologies used include:
 ---------------------------

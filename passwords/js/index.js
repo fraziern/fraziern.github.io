@@ -62,7 +62,7 @@ function generate() {
   let displayArr = Array(passwordLength).fill("");
 
   for (let i = 0; i < passwordLength; i++) {
-    for (let j = 0; j < 1000; j++) {
+    for (let j = 0; j < 500; j++) {
       window.setTimeout(()=>{
         displayArr[i] = letters.getRandElement();
         output.textContent = displayArr.join("");

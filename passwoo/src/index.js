@@ -80,25 +80,19 @@ function generate() {
 
   let displayArr = Array(passwordLength).fill("");
 
-  for (let i = 0; i < passwordLength; i++) {
-    for (let j = 0; j < 500; j++) {
-      window.setTimeout(
-        i => {
-          displayArr[i] = letters.getRandElement();
-          output.textContent = displayArr.join("");
-        },
-        100,
-        i
-      );
-    }
-    window.setTimeout(
-      i => {
-        displayArr[i] = passwordArray[i];
+  for (let i = 0; i <= 10; i++) {
+    if (i == 10) {
+      window.setTimeout(() => {
+        output.textContent = passwordArray.join("");
+      }, 10 * i);
+    } else {
+      window.setTimeout(() => {
+        displayArr = displayArr.map(() => {
+          return letters.getRandElement();
+        });
         output.textContent = displayArr.join("");
-      },
-      100,
-      i
-    );
+      }, 10 * i);
+    }
   }
 }
 
@@ -125,4 +119,4 @@ btnNum.addEventListener("click", e => {
   generate();
 });
 
-generate();
+window.onload = generate;

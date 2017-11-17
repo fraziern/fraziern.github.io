@@ -79,17 +79,19 @@ function generate() {
 
   var displayArr = Array(passwordLength).fill("");
 
-  for (var _i = 0; _i < passwordLength; _i++) {
-    for (var j = 0; j < 500; j++) {
-      window.setTimeout(function (i) {
-        displayArr[i] = letters.getRandElement();
+  for (var _i = 0; _i <= 10; _i++) {
+    if (_i == 10) {
+      window.setTimeout(function () {
+        output.textContent = passwordArray.join("");
+      }, 10 * _i);
+    } else {
+      window.setTimeout(function () {
+        displayArr = displayArr.map(function () {
+          return letters.getRandElement();
+        });
         output.textContent = displayArr.join("");
-      }, 100, _i);
+      }, 10 * _i);
     }
-    window.setTimeout(function (i) {
-      displayArr[i] = passwordArray[i];
-      output.textContent = displayArr.join("");
-    }, 100, _i);
   }
 }
 
@@ -116,4 +118,4 @@ btnNum.addEventListener("click", function (e) {
   generate();
 });
 
-generate();
+window.onload = generate;

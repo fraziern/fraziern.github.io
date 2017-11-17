@@ -5,12 +5,12 @@ function getRandomInt(max, min) {
   return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
 }
 
-Array.prototype.getRandElement = function() {
+Array.prototype.getRandElement = function () {
   // get a random element of an array
   return this[getRandomInt(this.length)];
 };
 
-Array.prototype.jumble = function() {
+Array.prototype.jumble = function () {
   // return a jumbled version of this
   var newArray = [];
   var oldArrCopy = this.slice();
@@ -38,9 +38,9 @@ var clipboard = new Clipboard(".password", {
   }
 });
 
-clipboard.on("success", function(e) {
+clipboard.on("success", function (e) {
   outputContainer.classList.add("show-tooltip");
-  window.setTimeout(function() {
+  window.setTimeout(function () {
     outputContainer.classList.remove("show-tooltip");
   }, 2000);
   e.clearSelection();
@@ -81,12 +81,12 @@ function generate() {
 
   var _loop = function _loop(_i) {
     for (var j = 0; j < 500; j++) {
-      window.setTimeout(function() {
+      window.setTimeout(function () {
         displayArr[_i] = letters.getRandElement();
         output.textContent = displayArr.join("");
       }, 100);
     }
-    window.setTimeout(function() {
+    window.setTimeout(function () {
       displayArr[_i] = passwordArray[_i];
       output.textContent = displayArr.join("");
     }, 100);
@@ -99,13 +99,13 @@ function generate() {
 
 // click handlers
 var btnGenerate = document.getElementById("generate");
-btnGenerate.addEventListener("click", function(e) {
+btnGenerate.addEventListener("click", function (e) {
   e.preventDefault();
   generate();
 });
 
 var btnPunc = document.getElementById("punctuation");
-btnPunc.addEventListener("click", function(e) {
+btnPunc.addEventListener("click", function (e) {
   e.preventDefault();
   addSpecials = !addSpecials;
   btnPunc.classList.toggle("on");
@@ -113,7 +113,7 @@ btnPunc.addEventListener("click", function(e) {
 });
 
 var btnNum = document.getElementById("numbers");
-btnNum.addEventListener("click", function(e) {
+btnNum.addEventListener("click", function (e) {
   e.preventDefault();
   addNumbers = !addNumbers;
   btnNum.classList.toggle("on");

@@ -82,12 +82,12 @@ function generate() {
 
   for (let i = 0; i < passwordLength; i++) {
     for (let j = 0; j < 500; j++) {
-      window.setTimeout(() => {
+      window.setTimeout(i => {
         displayArr[i] = letters.getRandElement();
         output.textContent = displayArr.join("");
       }, 100);
     }
-    window.setTimeout(() => {
+    window.setTimeout(i => {
       displayArr[i] = passwordArray[i];
       output.textContent = displayArr.join("");
     }, 100);

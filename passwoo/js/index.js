@@ -79,21 +79,17 @@ function generate() {
 
   var displayArr = Array(passwordLength).fill("");
 
-  var _loop = function _loop(_i) {
+  for (var _i = 0; _i < passwordLength; _i++) {
     for (var j = 0; j < 500; j++) {
-      window.setTimeout(function () {
-        displayArr[_i] = letters.getRandElement();
+      window.setTimeout(function (i) {
+        displayArr[i] = letters.getRandElement();
         output.textContent = displayArr.join("");
       }, 100);
     }
-    window.setTimeout(function () {
-      displayArr[_i] = passwordArray[_i];
+    window.setTimeout(function (i) {
+      displayArr[i] = passwordArray[i];
       output.textContent = displayArr.join("");
     }, 100);
-  };
-
-  for (var _i = 0; _i < passwordLength; _i++) {
-    _loop(_i);
   }
 }
 

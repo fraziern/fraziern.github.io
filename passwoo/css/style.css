@@ -192,3 +192,16 @@ button:focus {
 .show-tooltip.tooltip:after {
   transform: translateY(-12px);
 }
+
+/*Larger password area for large screens*/
+
+@media screen and (min-width: 780px) {
+  .password {
+    font-size: 88px;
+    width: 610px;
+  }
+
+  .password-container {
+    width: 652px;
+  }
+}

@@ -118,4 +118,4 @@ btnNum.addEventListener("click", function (e) {
   generate();
 });
 
-window.onload = generate;
+window.setTimeout(generate, 100);

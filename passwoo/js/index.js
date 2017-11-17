@@ -84,12 +84,12 @@ function generate() {
       window.setTimeout(function (i) {
         displayArr[i] = letters.getRandElement();
         output.textContent = displayArr.join("");
-      }, 100);
+      }, 100, _i);
     }
     window.setTimeout(function (i) {
       displayArr[i] = passwordArray[i];
       output.textContent = displayArr.join("");
-    }, 100);
+    }, 100, _i);
   }
 }
 

@@ -21,12 +21,31 @@ Array.prototype.jumble = function() {
 };
 
 let output = document.querySelector(".password");
+let outputContainer = document.querySelector(".password-container");
 const passwordLength = 12;
-const letters = ["A","B","C","D","E","F","G","H","J","K","L","M","N","P","Q","R","S","T","U","V","W","X","Y","Z","a","b","c","d","e","f","g","h","i","j","k","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
-const numbers = ["2","3","4","5","6","7","8","9"];
-const specials = ["!","@","#","$","%","^","&","*"];
+// prettier-ignore
+const letters = ["A","B","C","D","E","F","G","H","J","K","L","M",
+  "N","P","Q","R","S","T","U","V","W","X","Y","Z","a","b","c","d",
+  "e","f","g","h","i","j","k","m","n","o","p","q","r","s","t","u",
+  "v","w","x","y","z"];
+const numbers = ["2", "3", "4", "5", "6", "7", "8", "9"];
+const specials = ["!", "@", "#", "$", "%", "^", "&", "*"];
 let addSpecials = false;
 let addNumbers = false;
+
+const clipboard = new Clipboard(".password", {
+  text: function(trigger) {
+    return trigger.innerText;
+  }
+});
+
+clipboard.on("success", function(e) {
+  outputContainer.classList.add("show-tooltip");
+  window.setTimeout(function() {
+    outputContainer.classList.remove("show-tooltip");
+  }, 2000);
+  e.clearSelection();
+});
 
 function generate() {
   let passwordArray = [];
@@ -63,27 +82,27 @@ function generate() {
 
   for (let i = 0; i < passwordLength; i++) {
     for (let j = 0; j < 500; j++) {
-      window.setTimeout(()=>{
+      window.setTimeout(() => {
         displayArr[i] = letters.getRandElement();
         output.textContent = displayArr.join("");
-      },100);
+      }, 100);
     }
-    window.setTimeout(()=>{
+    window.setTimeout(() => {
       displayArr[i] = passwordArray[i];
       output.textContent = displayArr.join("");
-    },100);
+    }, 100);
   }
 }
 
 // click handlers
 let btnGenerate = document.getElementById("generate");
-btnGenerate.addEventListener("click", (e)=>{
+btnGenerate.addEventListener("click", e => {
   e.preventDefault();
   generate();
 });
 
 let btnPunc = document.getElementById("punctuation");
-btnPunc.addEventListener("click", (e)=>{
+btnPunc.addEventListener("click", e => {
   e.preventDefault();
   addSpecials = !addSpecials;
   btnPunc.classList.toggle("on");
@@ -91,7 +110,7 @@ btnPunc.addEventListener("click", (e)=>{
 });
 
 let btnNum = document.getElementById("numbers");
-btnNum.addEventListener("click", (e)=>{
+btnNum.addEventListener("click", e => {
   e.preventDefault();
   addNumbers = !addNumbers;
   btnNum.classList.toggle("on");

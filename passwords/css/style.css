@@ -3,9 +3,10 @@
   margin: 0;
 }
 
-html, body {
+html,
+body {
   height: 100%;
-  font-family: 'Oxygen Mono', monospace;
+  font-family: "Oxygen Mono", monospace;
 }
 
 .parent {
@@ -17,15 +18,37 @@ html, body {
   background-color: #bdc3c7;
 }
 
+.password-container {
+  position: relative;
+  width: 492px;
+  padding: 21px;
+  background-color: #aaaaaa;
+  border-radius: 6px;
+  margin: 0 auto;
+  box-shadow: inset 0px 0px 20px -6px rgba(0, 0, 0, 0.75);
+}
+
 .password {
   animation: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0s 1 shrinky;
   font-size: 62px;
   background-color: #16a085;
-  width: max-content;
   margin: 0 auto;
   padding: 21px;
   color: white;
-  min-width: 450px;
+  width: 450px;
+  border-radius: 3px;
+  z-index: 2;
+  position: relative;
+}
+
+.password:hover {
+  box-shadow: 0px 6px #137c67;
+  cursor: pointer;
+}
+
+.password:active {
+  transform: translateY(6px);
+  box-shadow: 0px 0px #137c67;
 }
 
 .footer {
@@ -55,11 +78,11 @@ button {
   height: 50px;
   display: block;
   float: left;
-  border-radius:3px;
+  border-radius: 3px;
   margin: 10px 10px 10px 10px;
-  padding:15px;
-  text-align:center;
-  text-decoration:none;
+  padding: 15px;
+  text-align: center;
+  text-decoration: none;
   color: #ecf0f1;
   cursor: pointer;
   font-size: 18px;
@@ -76,8 +99,8 @@ button:focus {
 .red.on {
   box-shadow: 0px 0px #c0392b;
   background: #c0392b;
-  position:relative;
-  top:6px;
+  position: relative;
+  top: 6px;
 }
 
 .purple {
@@ -87,19 +110,85 @@ button:focus {
 .purple:active {
   box-shadow: 0px 0px #8e44ad;
   background: #8e44ad;
-  position:relative;
-  top:6px;
+  position: relative;
+  top: 6px;
 }
 
 #twitter-widget-0 {
   margin-bottom: -4px;
 }
 
+/* Keyframe for password box */
+
 @keyframes shrinky {
   0% {
-    transform: scale(.92);
+    transform: scale(0.92);
   }
   100% {
     transform: scale(1);
   }
+}
+
+/* Base styles for the entire tooltip */
+.tooltip:before,
+.tooltip:after {
+  position: absolute;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out,
+    transform 0.2s cubic-bezier(0.71, 1.7, 0.77, 1.24);
+  transform: translate3d(0, 0, 0);
+  pointer-events: none;
+}
+
+/* Show the entire tooltip when this class is added */
+.show-tooltip.tooltip:before,
+.show-tooltip.tooltip:after {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Base styles for the tooltip's directional arrow */
+.tooltip:before {
+  z-index: 1001;
+  border: 6px solid transparent;
+  background: transparent;
+  content: "";
+}
+
+/* Base styles for the tooltip's content area */
+.tooltip:after {
+  z-index: 1000;
+  padding: 8px;
+  width: 160px;
+  background-color: #000;
+  background-color: hsla(0, 0%, 20%, 0.9);
+  color: #fff;
+  content: attr(data-tooltip);
+  font-size: 14px;
+  line-height: 1.2;
+}
+
+/* Top (default) */
+.tooltip:before,
+.tooltip:after {
+  bottom: 100%;
+  left: 50%;
+}
+
+.tooltip:before {
+  margin-left: -6px;
+  margin-bottom: -12px;
+  border-top-color: #000;
+  border-top-color: hsla(0, 0%, 20%, 0.9);
+}
+
+/* Horizontally align top/bottom tooltips */
+.tooltip:after {
+  margin-left: -80px;
+}
+
+.show-tooltip.tooltip:before,
+.show-tooltip.tooltip:after {
+  transform: translateY(-12px);
 }

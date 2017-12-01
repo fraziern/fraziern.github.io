@@ -4,7 +4,8 @@
   "description": "password generator",
   "main": "js/index.js",
   "scripts": {
-    "build": "babel src -d js"
+    "build": "babel src -d js",
+    "watch": "babel src -w -d js"
   },
   "author": "Nick Frazier",
   "license": "ISC",

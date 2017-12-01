@@ -18,16 +18,17 @@
 
   <div class="parent">
     <div class="password-container tooltip" data-tooltip="Copied. Woo!">
-      <div class="password"></div>
+      <div class="password tooltip help" data-tooltip="Click to copy"></div>
     </div>
     <div class="footer">
       <div class="controls">
-        <button class="red" id="punctuation">#</button>
+        <button class="red tooltip help" data-tooltip="Toggle stuff" id="punctuation">#</button>
         <button class="red" id="numbers">1</button>
-        <button class="purple" id="generate"><i class="material-icons">repeat</i></button>
+        <button class="purple tooltip help" data-tooltip="New password" id="generate"><i class="material-icons">repeat</i></button>
       </div>
       <div class="footer-text">
         Passwoo! - by Nick Frazier
+        <a id="help-link" href="#">Help</a>
         <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-text="Cool random password generator!" data-via="nrf" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
       </div>
     </div>
@@ -36,6 +37,7 @@
 
   <script src="js/clipboard.min.js"></script>
   <script src="js/fill.min.js"></script>
+  <script src="js/cookies.js"></script>
   <script src="js/index.js"></script>
 
 </body>

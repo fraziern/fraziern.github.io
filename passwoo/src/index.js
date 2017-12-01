@@ -1,3 +1,4 @@
+/* global Clipboard docCookies */
 function getRandomInt(max, min) {
   min = min || 0;
   return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
@@ -30,8 +31,10 @@ const letters = ["A","B","C","D","E","F","G","H","J","K","L","M",
   "v","w","x","y","z"];
 const numbers = ["2", "3", "4", "5", "6", "7", "8", "9"];
 const specials = ["!", "@", "#", "$", "%", "^", "&", "*"];
-let addSpecials = false;
-let addNumbers = false;
+let prefs = {
+  numbers: false,
+  specials: false
+};
 
 const clipboard = new Clipboard(".password", {
   text: function(trigger) {
@@ -61,14 +64,15 @@ function generate() {
   // a number or special to the first char in the passwd
   positions.splice(0, 1, 0);
 
+  // TODO: refactor - combine the below 2 if statements?
   // add a number?
-  if (addNumbers) {
+  if (prefs.numbers) {
     currentPosition = positions.pop();
     passwordArray[currentPosition] = numbers.getRandElement();
   }
 
   // add a special?
-  if (addSpecials) {
+  if (prefs.specials) {
     currentPosition = positions.pop();
     passwordArray[currentPosition] = specials.getRandElement();
   }
@@ -97,26 +101,61 @@ function generate() {
 }
 
 // click handlers
+function toggle(type) {
+  prefs[type] = !prefs[type];
+  buttons[type].classList.toggle("on");
+}
+
 let btnGenerate = document.getElementById("generate");
 btnGenerate.addEventListener("click", e => {
   e.preventDefault();
   generate();
 });
 
-let btnPunc = document.getElementById("punctuation");
-btnPunc.addEventListener("click", e => {
+let buttons = {
+  specials: document.getElementById("punctuation"),
+  numbers: document.getElementById("numbers")
+};
+
+for (const btn in buttons) {
+  buttons[btn].addEventListener("click", e => {
+    e.preventDefault();
+    toggle(btn);
+    setCookies();
+    generate();
+  });
+}
+
+let btnHelp = document.getElementById("help-link");
+let helpEls = document.getElementsByClassName("help");
+btnHelp.addEventListener("click", e => {
   e.preventDefault();
-  addSpecials = !addSpecials;
-  btnPunc.classList.toggle("on");
-  generate();
+  Array.prototype.forEach.call(helpEls, function(el) {
+    el.classList.add("show-tooltip");
+    window.setTimeout(function() {
+      el.classList.remove("show-tooltip");
+    }, 3000);
+  });
 });
 
-let btnNum = document.getElementById("numbers");
-btnNum.addEventListener("click", e => {
-  e.preventDefault();
-  addNumbers = !addNumbers;
-  btnNum.classList.toggle("on");
-  generate();
-});
+// check for user preferences
+function checkCookies() {
+  if (docCookies.hasItem("prefs")) {
+    let prefsCookie = JSON.parse(docCookies.getItem("prefs"));
+    if ("numbers" in prefsCookie && "specials" in prefsCookie) {
+      if (prefsCookie.numbers) {
+        toggle("numbers");
+      }
+      if (prefsCookie.specials) {
+        toggle("specials");
+      }
+    }
+  }
+}
 
+function setCookies(pref) {
+  docCookies.setItem("prefs", JSON.stringify(prefs));
+}
+
+checkCookies();
 window.setTimeout(generate, 100);

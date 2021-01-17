@@ -1,0 +1,6 @@
+I"�<p><img src="/img/gif_ttt.gif" alt="Project screenshot" /></p>
+
+<p>This is a tic tac toe game with a twist - there are 2 CPU characters. Your “opponent” relies on a hybrid minimax AI to try to beat you, while your well-meaning but hapless AI assistant, “Crappy,” seems to always recommend the worst possible move. (Crappy uses a ‘minimin’ algorithm I created to always give the worst advice.)</p>
+
+<p><a href="http://codepen.io/fraziern/full/XXKNZM/">Live demo and code</a></p>
+:ET

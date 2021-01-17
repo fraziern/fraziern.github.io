@@ -1,0 +1,38 @@
+I"�<p>In 2014 I took Joshua Davis’s <a href="https://www.skillshare.com/classes/design/Programming-Graphics-I-Introduction-to-Generative-Art/782118657">online class on programming graphics and generative art</a>. I’ve long been a fan of Joshua’s work, and had played around with the Processing language enough to know how fun and powerful it is. So when I found out about the class I jumped at the chance to download a tiny bit of his genius into my brain.</p>
+
+<p>The final class project required us to create a 2D vector image, building on the algorithmic, color, and design techniques we had learned in class. So without further ado, I present to you - Boots and Pickles:</p>
+
+<p><img src="/img/bp/bootsPickles3.jpg" alt="bootsAndPickles1" /></p>
+
+<p>(Well, that’s one of them, anyways.)</p>
+
+<p>My starting point was one of nature’s most amazing mathematical tricks - the Fibonacci spiral.</p>
+
+<p><img src="/img/bp/sunflower.jpg" alt="sunflower" /></p>
+
+<p>I had long wanted to tinker with this design and Joshua’s class struck me as the perfect setting. Helpfully, there are several excellent sources online for the basic algorithm to generate the spiral (see below).</p>
+
+<p>Joshua devoted a section of the class to color - particularly tools and techniques for developing a palette. He’s a big fan of finding a color combination that works already, and “ripping it off.” So using some of his recommended tools, I did just that. I took a background from the old TV show “Soul Train” and sampled the dominant colors for my project:</p>
+
+<p><img src="/img/bp/product-bg-desktop-soultrain.jpg" alt="soul train" /></p>
+
+<p>The class focused on a certain workflow: (a) create a small (preferably hand-built) visual component, (b) color it nicely, (c) render it somewhere on the screen using <a href="https://processing.org/">Processing</a> (and Davis’s own <a href="http://www.hypeframework.org/">rendering framework</a>), (d) repeat.</p>
+
+<p>So I had my colors, I had my pattern, I just needed something to draw. For that, I used boots and pickles. There’s this joke about how if you say “boots and pants and boots and pants and …” over and over it starts to sound like techno music. I liked the idea of translating the joke into an image, but changed it slightly to “boots and pickles,” because why not?</p>
+
+<p>Using some stock boots and pickles images, I hand-traced a few drawings on an iPad, cleaned them up in Inkscape, and added random colors from my Soul Train palette. After a few tests, something started to emerge:</p>
+
+<p><img src="/img/bp/render-000066.jpg" alt="bootsPicklesTest" /></p>
+
+<p>The spiral algorithm came next. The initial calculations are based on <a href="https://krazydad.com/tutorials/circles_js/">this</a> excellent tutorial by Jim Bumgardner. The code I built off that base turned out to be highly sensitive to initial settings (in other words, it was finicky). Rather than it being a tedious challenge, though, its quirky nature opened up the possibility of endless designs. I built in a little randomness to the settings, and once I had the ranges dialed in and a way to speed up the feedback loop, things started getting fun:</p>
+
+<p><img src="/img/bp/render-000064-raw.jpg" alt="bootsPickles2" /></p>
+
+<p><img src="/img/bp/render-000114-raw.jpg" alt="bootsPickles4" /></p>
+
+<p>Every time I ran the algorithm, something a little different popped out. I’m sure if I sat there and generated patterns long enough, the “perfect” picture would emerge. But I think I ended up with two or three rather nice ones all the same. After picking one particularly good example and adjusting scale, stroke, background texture, aliasing, opacity, and so on, here’s where I ended up:</p>
+
+<p><img src="/img/bp/bootsPickles3.jpg" alt="bootsAndPickles1" /></p>
+
+<p>In sum, I highly recommend Joshua Davis’s class to anyone interested in intersecting art and code. I had a lot of fun with it, and got to work both my coding and visual-design muscles in many new ways.</p>
+:ET

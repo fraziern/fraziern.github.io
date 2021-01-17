@@ -1,0 +1,69 @@
+I"w<p>Single Page App built from the ground up, with back-end API and React front-end.</p>
+
+<p><strong>This app is currently in active use by Raleigh Moravian Church!</strong></p>
+
+<p><img src="/img/gif_sched3.gif" alt="Project screenshot" /></p>
+<div class="caption">Admin page shown.</div>
+
+<p>My church had been using a Google Docs spreadsheet to solicit and manage signups for each Sunday’s volunteers, but there were several pain points from both the administrative end, and on the part of the volunteers who used the page to sign up:</p>
+
+<ul>
+  <li>Google Docs did not work well on mobile devices</li>
+  <li>Administrators did not want volunteers to change signups within 2 weeks of the scheduled day, to prevent last minute changes</li>
+  <li>The UI was unwieldy for users who were older or less computer-savvy</li>
+  <li>The church was concerned that if users had difficulty signing up, they would be discouraged from volunteering</li>
+</ul>
+
+<p>I developed an online signup sheet app that attempted to reduce friction involved in signing up for slots, and for administering the site:</p>
+
+<ul>
+  <li>Primary design principle is ease of use for non-technical and older users: large type, simple layout, muted colors</li>
+  <li>For volunteers, no login requirement and one-click signup with autosave lowers as many barriers as possible</li>
+  <li>Sanitized inputs and back-end validation to ensure security and data integrity</li>
+  <li>Admin view includes full editing and filtering options</li>
+  <li>Streamlined responsive layout designed for “mobile first”</li>
+  <li>Signup days and slots within days can be added, edited, deleted easily from desktop or mobile</li>
+  <li>Reports page for admins includes filterable data visualizations to assist with planning and volunteer appreciation strategy</li>
+</ul>
+
+<p><img src="/img/gif_sched4.gif" alt="Reports screenshot" /></p>
+<div class="caption">Reports page shown.</div>
+
+<p>Responsive CSS ensures a great experience on mobile, tablet, or desktop screens.</p>
+
+<p><img src="/img/ss_schedule-mobile.png" alt="Mobile screenshot" /></p>
+<div class="caption">Mobile view</div>
+
+<h2 id="performance">Performance</h2>
+
+<p>I went through a performance-improvement cycle after the codebase had stabilized somewhat. The production bundle had grown to 1.2 MB, with load times of up to 8 seconds in my tests. By profiling the package sizes, trimming a few unnecessary modules with Webpack’s IgnorePlugin and DedupePlugin, adding server-level compression, and using <a href="https://github.com/ReactTraining/react-router/blob/master/packages/react-router-dom/docs/guides/code-splitting.md">code-splitting</a>, I was able to reduce that down to 168kb (!). In post-diet tests, total load times for the main page were under one second with cache, and around 1.5 seconds without.</p>
+
+<h2 id="front-end-technologies-used-include">Front-end technologies used include:</h2>
+
+<ul>
+  <li>ReactJS</li>
+  <li>Redux</li>
+  <li>RxJS</li>
+  <li>Passport authentication</li>
+  <li>Recharts React/D3 components</li>
+  <li>React Router</li>
+  <li>Bootstrap</li>
+</ul>
+
+<h2 id="back-end-technologies-used-include">Back-end technologies used include:</h2>
+
+<ul>
+  <li>MongoDB</li>
+  <li>Mongoose</li>
+  <li>Node.js</li>
+  <li>Express</li>
+</ul>
+
+<p>Built with Webpack and Babel</p>
+
+<p>Code at <a href="https://github.com/fraziern"><span class="icon icon--github"><svg viewBox="0 0 16 16"><path d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"></path></svg>
+</span><span class="username">fraziern</span></a>
+ / <a href="https://github.com/fraziern/schedule">schedule</a></p>
+
+<p>Last updated: May 13, 2017</p>
+:ET

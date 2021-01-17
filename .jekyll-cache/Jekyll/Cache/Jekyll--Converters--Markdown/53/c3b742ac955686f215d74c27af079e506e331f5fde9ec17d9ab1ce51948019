@@ -1,0 +1,184 @@
+I"�A<link rel="stylesheet" href="/css/soundpost.css" />
+
+<p><em>A version of this story is published on Medium <a href="https://medium.freecodecamp.com/web-audio-for-the-user-interface-1592687f898c#.nernw0grc">here</a>.</em></p>
+
+<p>When people my age hear the phrase “web audio”, they probably think of Geocities sites
+of the 90’s with irritating sound loops playing in the background. The possibilities then were
+limited, and sound was quickly abandoned as a component of most web experiences.
+Other than the occasional “experimental” site or band page, sound on the web since then
+has been the exception rather than the rule.</p>
+
+<p>The technology has come a long way since then, though, and with the advances have come
+the opportunity to start looking at sound as a real possibility for the web.
+And not just for media-heavy sites. Video game designers have for years understood the value
+of sound design in even the most mundane menus and user interface interactions. See for
+example the rich sound design of the <a href="https://www.youtube.com/watch?v=W17KKFf9GRE">Destiny character menus.</a>
+While web interactions are not quite the same, with the continued emphasis on
+the user experience there is every reason to consider engaging the auditory sense
+as part of the package.</p>
+
+<p>That doesn’t mean we should start adding firework blasts and blaring trumpets to our landing page just because we can. <a href="http://webpropelled.com/2012/5-reasons-your-website-should-never-autoplay-sound/">Unexpected and unwanted sound is a deal-breaker.</a> So the first question to ask may well be, “Do my users expect sound?” In the case of a game, music, or similar site, they probably do. If so, adding sound to your user interface could be a welcome area of development. (You still probably want to add a master mute button, though.)</p>
+
+<p>It is with this frame of mind that I began to explore the addition of subtle sound
+design into some of my web user interfaces. I had a few goals:</p>
+
+<ul>
+  <li>The ability to play a sound on an event (e.g. rollover, click)</li>
+  <li>Good performance, low latency</li>
+  <li>Good browser coverage</li>
+  <li>Few to no distracting side effects or annoyances (i.e. avoid the Geocities syndrome)</li>
+</ul>
+
+<p>What follows is an overview of the best practices I’ve come across during my
+experimentation, based on the state of the web as of this writing. Keep in mind that
+audio on the web is still a relatively unexplored territory, so there is still much to
+create and discover in the field.</p>
+
+<h1 id="the-html-audio-element">The HTML Audio Element</h1>
+
+<p>Up until the advent of HTML5, audio on the web was best described as “primitive.” The only way to incorporate sound into a site was with a plug-in like Flash. HTML5 brought with it the <code class="highlighter-rouge">&lt;audio&gt;</code> tag - a modest but important step up. This tag was designed to allow developers to easily stream sounds and music right from the page with one line of code. Simple controls could be embedded by <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/audio">adding one attribute:</a></p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;audio</span> <span class="na">id=</span><span class="s">"snare"</span> <span class="na">src=</span><span class="s">"snare-2.mp3"</span> <span class="na">controls</span><span class="nt">&gt;&lt;/audio&gt;</span></code></pre></figure>
+
+<p>The result:</p>
+
+<audio id="snare" src="/audio/snare-2.mp3" controls=""></audio>
+
+<p>By itself, the usefulness of this tag is limited. However, HTML5 also introduced a
+javascript API, <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLAudioElement">HTMLAudioElement</a>,
+that provides the ability to programmatically play sounds. Adding sounds to
+events using this interface looks like this:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">playSound</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">snare</span><span class="dl">"</span><span class="p">).</span><span class="nx">play</span><span class="p">();</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>… which allows you to trigger a sound using javascript. Here’s an example of this in use:</p>
+
+<audio id="snare2" src="/audio/snare-2.mp3"></audio>
+
+<p data-height="230" data-theme-id="light" data-slug-hash="akroRZ" data-default-tab="result" data-user="fraziern" data-embed-version="2" class="codepen">See the Pen <a href="http://codepen.io/fraziern/pen/akroRZ/">HTML Demo</a> by Nick Frazier (<a href="http://codepen.io/fraziern">@fraziern</a>) on <a href="http://codepen.io">CodePen</a>.</p>
+<script async="" src="//assets.codepen.io/assets/embed/ei.js"></script>
+
+<p></p>
+
+<p>Try clicking twice in succession, though, and you will immediately experience one of the major drawbacks to HTML audio. Playing a sound more than once is tricky. If you used only the <code class="highlighter-rouge">play()</code> function and one source, the browser will wait until it’s done playing the sound before allowing you to trigger another. In fact even with multiple sources, HTML audio has limited ability to play several sounds at once.</p>
+
+<p>One trick I found to enabling more performant triggering (using only one source) is to always stop the sound before playing it. Note the API doesn’t include a “stop” function, but simply reloading the file does the trick:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">playSound</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">snare2</span><span class="dl">"</span><span class="p">).</span><span class="nx">load</span><span class="p">();</span>
+  <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">snare2</span><span class="dl">"</span><span class="p">).</span><span class="nx">play</span><span class="p">();</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Now we should be able to hit those rapid fire snares like the next 9th Wonder:</p>
+
+<p data-height="230" data-theme-id="light" data-slug-hash="pbYzxk" data-default-tab="result" data-user="fraziern" data-embed-version="2" class="codepen">See the Pen <a href="http://codepen.io/fraziern/pen/pbYzxk/">HTML Demo Improved</a> by Nick Frazier (<a href="http://codepen.io/fraziern">@fraziern</a>) on <a href="http://codepen.io">CodePen</a>.</p>
+<script async="" src="//assets.codepen.io/assets/embed/ei.js"></script>
+
+<p></p>
+
+<h1 id="audio-formats-a-side-note">Audio Formats: A Side Note</h1>
+
+<p>Choosing the best audio format for web use was once a tricky task. Cross-browser compatibility of formats was all over the place. You usually had to have multiple versions of the same files, with different extensions, at the ready to be prepared for whatever browser your site might encounter.</p>
+
+<p>Now it’s simpler: use mp3s.</p>
+
+<p><img src="/img/caniuse_mp3.jpg" alt="Browser coverage from caniuse for mp3s" /></p>
+<div class="caption">Current browser coverage for the mp3 format, from caniuse.com</div>
+
+<p>Other than IE8 (which is all but dead) and Opera Mini (which doesn’t support audio anyways), mp3 files should work just about anywhere. They’re also compact. If all you have are wav files or some other format, go ahead and use a conversion utility (I use <a href="http://www.mediahuman.com/audio-converter/">MH Audio Converter</a>) and get everything standardized to mp3.</p>
+
+<h1 id="web-audio-api-a-giant-leap">Web Audio API: A Giant Leap</h1>
+
+<p>HTML audio provides a passable solution to sound. Particularly, I found that using it through a javascript library, <a href="http://buzz.jaysalvat.com/">Buzz</a>, made it a flexible and simple option. However, there are still numerous drawbacks:</p>
+
+<ul>
+  <li>Playing multiple sounds in quick succession is a subpar experience</li>
+  <li>The ability to manipulate the sound is limited</li>
+  <li>Syncing sounds is a pain</li>
+</ul>
+
+<p>Enter the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API">Web Audio API.</a> Web Audio is the proper successor to HTML Audio, and solves some of the problems of the latter while also adding a vast amount of flexibility. With Web Audio, developers now have a robust set of tools to create sound engines on the level of platform games and pro software synthesizers.</p>
+
+<p>Using Web Audio instead of HTML Audio, we can create a button click sound that layers on top of itself rather than clipping, as this visualization demonstrates:</p>
+
+<!-- stacked waveform css animation follows -->
+<p data-height="270" data-theme-id="light" data-slug-hash="qNvWrB" data-default-tab="result" data-user="fraziern" data-embed-version="2" class="codepen">See the Pen <a href="http://codepen.io/fraziern/pen/qNvWrB/">Web Audio Viz</a> by Nick Frazier (<a href="http://codepen.io/fraziern">@fraziern</a>) on <a href="http://codepen.io">CodePen</a>.</p>
+<script async="" src="//assets.codepen.io/assets/embed/ei.js"></script>
+
+<p></p>
+
+<p>There are a couple catches, though, one of which I ran up against immediately: Web Audio is complicated. If you crack open one of the many excellent API tutorials online (I recommend Boris Smus’s book <a href="http://chimera.labs.oreilly.com/books/1234000001552">Web Audio API</a>, the entire text of which is available for free on the O’Reilly site) the first thing you’ll notice is that merely playing a single sound can require a couple dozen lines of code.</p>
+
+<p>The solution I found to this is <a href="http://www.createjs.com/soundjs">SoundJS</a>. SoundJS, part of the CreateJS suite of tools, is a powerful sound library with a gentle learning curve. Part of its power is in abstracting away many of the details of the lower level audio APIs, such that the same code can be run on HTML Audio, Web Audio, or even Flash audio, depending on what the user’s browser supports.</p>
+
+<p>But I’ve found that where it really excels is in its handling of Web Audio. Now instead of writing a page of code to play a sound on a click event, you can write this:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">loadSound</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="nx">createjs</span><span class="p">.</span><span class="nx">Sound</span><span class="p">.</span><span class="nx">registerSound</span><span class="p">(</span><span class="dl">"</span><span class="s2">snare-2.mp3</span><span class="dl">"</span><span class="p">,</span> <span class="nx">soundID</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">playSound</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="nx">createjs</span><span class="p">.</span><span class="nx">Sound</span><span class="p">.</span><span class="nx">play</span><span class="p">(</span><span class="nx">soundID</span><span class="p">);</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Try it out and listen to the difference (and sonic improvement):</p>
+
+<p data-height="230" data-theme-id="light" data-slug-hash="GqZKNo" data-default-tab="result" data-user="fraziern" data-embed-version="2" class="codepen">See the Pen <a href="http://codepen.io/fraziern/pen/GqZKNo/">GqZKNo</a> by Nick Frazier (<a href="http://codepen.io/fraziern">@fraziern</a>) on <a href="http://codepen.io">CodePen</a>.</p>
+<script async="" src="//assets.codepen.io/assets/embed/ei.js"></script>
+
+<p></p>
+
+<p>The other major catch is that the Web Audio standard is still in flux - it’s currently a working draft, and there is no support in Internet Explorer.</p>
+
+<p><img src="/img/caniuse_webaudio.jpg" alt="Web Audio compatibility chart" /></p>
+<div class="caption">Current browser coverage for the Web Audio API, from caniuse.com</div>
+
+<p>At a finer grain, there are currently some additional limitations to audio in general, most notably on moblie devices:</p>
+
+<ul>
+  <li>With iOS devices, sound is initially locked and will not play until a user-initiated event occurs. This is apparently a measure to reduce bandwidth.</li>
+  <li>With Android devices, there is no control over audio volume, and you can only play audio as part of a user-initiated event.</li>
+</ul>
+
+<p>These limitations may not matter as much with the click events like I’ve demonstrated so far, but they may come into play once more sophisticated UI sound design is employed. Which brings us to our last step.</p>
+
+<h1 id="going-further-with-web-audio">Going Further with Web Audio</h1>
+
+<p>When I started thinking about “UI Sound Design,” my first thought was click events. But once that was solved, I wondered about other possibilities. What about rollover events? Or scroll events? Or something completely different? With Web Audio, I’ve found that there are a world of possibilities.</p>
+
+<p>Web Audio allows you to add several different types of pro-level effects to your audio chain. For example:</p>
+
+<ul>
+  <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/BiquadFilterNode">BiquadFilterNodes</a> can be used as highpass/lowpass/notch filters</li>
+  <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/ConvolverNode">ConvolverNodes</a> can be used for reverb</li>
+  <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/DelayNode">DelayNodes</a> can be used for delay effects</li>
+  <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/StereoPannerNode">StereoPannerNodes</a> allow for panning left and right</li>
+  <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/AnalyserNode">AnalyserNodes</a> enable data analysis and visualization</li>
+</ul>
+
+<p>What if, I thought, you used a BiquadFilterNode in conjunction with an event handler that tracks mouse proximity to a button? You could change a sound based on how close to the button your mouse pointer is. <a href="https://www.youtube.com/watch?v=HieClHTxid0">Moog-style filter sweeps</a> in your UI - how cool would that be?</p>
+
+<p>It turns out that SoundJS makes this, too, relatively easy (although tweaking the library’s Web Audio context is not as well documented as the rest of the API). Using some of the more <a href="http://createjs.com/docs/soundjs/classes/WebAudioPlugin.html">advanced</a> parts of the API, I found that you can “insert” a filter into SoundJS’s Web Audio setup, and fiddle to your heart’s content. Adjust the filter based on mouse movements, and voila, a proximity filter:</p>
+
+<!-- proximity filter demo follows -->
+<p data-height="230" data-theme-id="light" data-slug-hash="oLVvdg" data-default-tab="result" data-user="fraziern" data-embed-version="2" class="codepen">See the Pen <a href="http://codepen.io/fraziern/pen/oLVvdg/">SoundJS Filter Demo</a> by Nick Frazier (<a href="http://codepen.io/fraziern">@fraziern</a>) on <a href="http://codepen.io">CodePen</a>.</p>
+<script async="" src="//assets.codepen.io/assets/embed/ei.js"></script>
+
+<p></p>
+
+<p>If you want to experiment yourself, check out my SoundJS code in the above pen. The proximity algorithm is based on <a href="https://css-tricks.com/snippets/jquery/calculate-distance-between-mouse-and-element/">this</a> CSS-Tricks snippet from Chris Coyier.</p>
+
+<h1 id="the-skys-the-limit">The Sky’s the Limit</h1>
+
+<p>With Web Audio, web developers seem to finally have a deep and powerful toolbox for designing and manipulating audio. It’s also ripe for developing new ideas and techniques, as it’s really just beginning to be incorporated into modern web user experiences. My own explorations scratch the surface. I’m continuing to search for new ways to engage others with sound, and I look forward to seeing where things go next.</p>
+
+<h1 id="additional-resources">Additional Resources</h1>
+
+<p><a href="http://createjs.com/demos/soundjs/webaudionodeinsertion">SoundJS Visualizer Demo</a>: The source code for this demo is the best resource if you want to start pulling apart the SoundJS Web Audio graph</p>
+
+<p><a href="http://designingsound.org/">Designing Sound</a>: Sound design inspiration from the masters.</p>
+
+<p><a href="https://www.chromeexperiments.com/">Chrome Experiments</a>: Another amazing collection of design (both visual and auditory) inspiration.</p>
+:ET

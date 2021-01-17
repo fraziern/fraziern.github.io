@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Quadcopter PID Explorer</title>
     <style>
       body {
         font-family: Arial, Helvetica, sans-serif, sans-serif;
@@ -30,13 +31,31 @@
         width: 720px;
         margin: auto;
       }
+
+      .description {
+        flex: 0 1 auto;
+        width: 720px;
+        margin: auto;
+        font-size: 20px;
+        list-style-type: none;
+      }
+
+      .linklist {
+        list-style-type: none;
+      }
+      .footer {
+        flex: 0 1 auto;
+        width: 720px;
+        margin: auto;
+        margin-top: 50px;
+      }
     </style>
     <title>Document</title>
   </head>
   <body>
     <div class="container">
       <div class="title">
-        <h1>The Quadcopter PID Controller</h1>
+        <h1>The Quadcopter PID Explorer</h1>
       </div>
       <div class="iframe">
         <iframe
@@ -46,6 +65,76 @@
           title="Drone PID Simulator"
           frameborder="0"
         ></iframe>
+      </div>
+      <div class="description">
+        <p>
+          This simulator models an acro drone PID controller, for the roll axis
+          only. The drone's roll rate can be controlled with the top left
+          slider, like you would use a RC transmitter. Like a transmitter stick,
+          it will snap back to the center when you release your "grip."
+        </p>
+        <p>
+          Changing the P, I, or D gain values immediately changes the PID
+          controller.
+        </p>
+        <p>
+          The model assumes a slight systemic imbalance that will cause the
+          drone to naturally drift.
+        </p>
+        <p>
+          You can try different drone mass parameters with the upper right
+          slider - for example to see how a lighter drone might behave versus a
+          heavier one.
+        </p>
+        <p>Some suggested experiments to get you started:</p>
+        <li>
+          <ol>
+            Try zeroing out the I and D gains then making quick, halting left
+            and right rolls.
+          </ol>
+          <ol>
+            With I and D zeroed out, try very low and very high P values.
+          </ol>
+          <ol>
+            Try adding in a little D, then try halting rolls again to see what's
+            changed.
+          </ol>
+          <ol>
+            Try adding in a little I gain, and watching how the natural drift
+            changes.
+          </ol>
+          <ol>
+            Try adding larger and larger I values, to see when the model becomes
+            unstable again.
+          </ol>
+        </li>
+        <p>
+          For more information on PID controllers, you can check out some of
+          these links.
+          <li class="linklist">
+            <ul>
+              <a
+                href="https://www.arrow.com/en/research-and-events/articles/pid-controller-basics-and-tutorial-pid-implementation-in-arduino"
+                >PID Controller Basics and Tutorial</a
+              >
+            </ul>
+            <ul>
+              <a
+                href="https://hackernoon.com/a-conceptual-breakdown-of-pid-controllers-9fa072a140a5"
+                >A Conceptual Breakdown of PID Controllers</a
+              >
+            </ul>
+            <ul>
+              <a href="https://github.com/thomphil/PID-controller"
+                >PID Controller Simulation Code (which inspired this
+                simulator)</a
+              >
+            </ul>
+          </li>
+        </p>
+      </div>
+      <div class="footer">
+        This explorer was created with <a href="https://p5js.org/">P5.js.</a>
       </div>
     </div>
   </body>

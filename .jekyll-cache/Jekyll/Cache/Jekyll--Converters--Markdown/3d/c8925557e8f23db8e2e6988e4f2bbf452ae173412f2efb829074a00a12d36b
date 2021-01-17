@@ -1,0 +1,29 @@
+I"r<p>They wanted a Reactified recipe book. I created one for colors. I don’t cook that much.</p>
+
+<p><img src="/img/gif_colo.gif" alt="Project screenshot" /></p>
+
+<h1 id="requirements">Requirements</h1>
+
+<ol>
+  <li>
+    <p>User Story: I can create recipes that have names and ingredients.</p>
+  </li>
+  <li>
+    <p>User Story: I can see an index view where the names of all the recipes are visible.</p>
+  </li>
+  <li>
+    <p>User Story: I can click into any of those recipes to view it.</p>
+  </li>
+  <li>
+    <p>User Story: I can edit these recipes.</p>
+  </li>
+  <li>
+    <p>User Story: I can delete these recipes.</p>
+  </li>
+  <li>
+    <p>User Story: All new recipes I add are saved in my browser’s local storage. If I refresh the page, these recipes will still be there.</p>
+  </li>
+</ol>
+
+<p>Code and demo on <a href="http://codepen.io/fraziern/pen/RapvBJ">Codepen</a>.</p>
+:ET

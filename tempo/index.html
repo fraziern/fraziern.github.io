@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0c0e13">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Tempo">
+<meta name="description" content="Track time entries with start, pause, stop, and CSV export.">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<title>Tempo — Time Entry Tracker</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #0c0e13;
+    --surface: #14171e;
+    --surface-raised: #1a1e28;
+    --border: #252a36;
+    --border-glow: #3b4459;
+    --text: #e8eaf0;
+    --text-dim: #7a8299;
+    --text-muted: #4a5168;
+    --accent: #56d4a0;
+    --accent-dim: #2a6b50;
+    --accent-glow: rgba(86, 212, 160, 0.15);
+    --danger: #e85d6f;
+    --danger-dim: rgba(232, 93, 111, 0.15);
+    --timer-font: 'DM Mono', monospace;
+    --body-font: 'Outfit', sans-serif;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--body-font);
+    min-height: 100vh;
+    min-height: 100dvh;
+    overflow-x: hidden;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  /* Subtle grid background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 60px 60px;
+    opacity: 0.15;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .app {
+    position: relative;
+    z-index: 1;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 48px 24px 120px;
+    padding-top: max(48px, env(safe-area-inset-top, 48px));
+    padding-left: max(24px, env(safe-area-inset-left, 24px));
+    padding-right: max(24px, env(safe-area-inset-right, 24px));
+  }
+
+  /* Header */
+  .header {
+    margin-bottom: 48px;
+  }
+
+  .header h1 {
+    font-size: 2.4rem;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .header h1 .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 12px var(--accent), 0 0 24px rgba(86, 212, 160, 0.3);
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(0.85); }
+  }
+
+  .header p {
+    margin-top: 8px;
+    color: var(--text-dim);
+    font-size: 0.95rem;
+    font-weight: 300;
+  }
+
+  /* New Timer Bar */
+  .new-timer-bar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 36px;
+  }
+
+  .input-wrapper {
+    position: relative;
+  }
+
+  .input-wrapper.project-wrapper {
+    flex: 0 0 160px;
+  }
+
+  .input-wrapper.name-wrapper {
+    flex: 1;
+  }
+
+  .new-timer-bar input {
+    width: 100%;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 18px;
+    color: var(--text);
+    font-family: var(--body-font);
+    font-size: 0.95rem;
+    font-weight: 400;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .new-timer-bar input::placeholder {
+    color: var(--text-muted);
+  }
+
+  .new-timer-bar input:focus {
+    border-color: var(--accent-dim);
+    box-shadow: 0 0 0 3px var(--accent-glow);
+  }
+
+  /* Autocomplete dropdown */
+  .autocomplete-list {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    background: var(--surface-raised);
+    border: 1px solid var(--border-glow);
+    border-radius: 10px;
+    overflow: hidden;
+    z-index: 20;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    display: none;
+  }
+
+  .autocomplete-list.visible {
+    display: block;
+    animation: dropdown-in 0.15s ease-out;
+  }
+
+  @keyframes dropdown-in {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .autocomplete-item {
+    padding: 10px 16px;
+    font-size: 0.9rem;
+    color: var(--text-dim);
+    cursor: pointer;
+    transition: background 0.1s, color 0.1s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .autocomplete-item:hover,
+  .autocomplete-item.active {
+    background: var(--accent-glow);
+    color: var(--text);
+  }
+
+  .autocomplete-item .match {
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  .autocomplete-hint {
+    padding: 8px 16px;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .btn {
+    border: none;
+    cursor: pointer;
+    font-family: var(--body-font);
+    font-weight: 500;
+    border-radius: 10px;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+  }
+
+  .btn-start {
+    background: var(--accent);
+    color: #0c0e13;
+    padding: 14px 24px;
+    font-size: 0.9rem;
+  }
+
+  .btn-start:hover {
+    background: #6be4b2;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 20px rgba(86, 212, 160, 0.3);
+  }
+
+  .btn-start:active { transform: translateY(0); }
+
+  .btn-start svg { width: 16px; height: 16px; }
+
+  /* Timer Cards */
+  .timers-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .timer-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px 24px;
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    align-items: center;
+    gap: 16px;
+    animation: card-in 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  @keyframes card-in {
+    from { opacity: 0; transform: translateY(12px) scale(0.97); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .timer-card.running {
+    border-color: var(--accent-dim);
+    box-shadow: 0 0 0 1px var(--accent-dim), 0 2px 24px var(--accent-glow);
+  }
+
+  .timer-card.paused {
+    border-color: #6a5a1e;
+    box-shadow: 0 0 0 1px #6a5a1e, 0 2px 24px rgba(212, 186, 56, 0.1);
+  }
+
+  .timer-card.stopped {
+    opacity: 0.55;
+  }
+
+  .timer-info {
+    min-width: 0;
+  }
+
+  .timer-name {
+    font-weight: 500;
+    font-size: 1rem;
+    color: var(--text);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .timer-project {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: var(--accent);
+    background: var(--accent-glow);
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-bottom: 4px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+
+  .timer-status {
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: var(--text-muted);
+    margin-top: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .timer-status .live-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: pulse-dot 1.2s ease-in-out infinite;
+  }
+
+  .timer-status .paused-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #d4ba38;
+    animation: pulse-dot 2.5s ease-in-out infinite;
+  }
+
+  .timer-status .stopped-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--text-muted);
+  }
+
+  .timer-elapsed {
+    font-family: var(--timer-font);
+    font-size: 1.6rem;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    color: var(--text);
+    min-width: 140px;
+    text-align: right;
+  }
+
+  .timer-card.running .timer-elapsed {
+    color: var(--accent);
+  }
+
+  .timer-card.paused .timer-elapsed {
+    color: #d4ba38;
+  }
+
+  .timer-actions {
+    display: flex;
+    gap: 8px;
+  }
+
+  .btn-stop {
+    background: var(--danger-dim);
+    color: var(--danger);
+    padding: 10px 18px;
+    font-size: 0.8rem;
+    letter-spacing: 0.03em;
+  }
+
+  .btn-stop:hover {
+    background: rgba(232, 93, 111, 0.25);
+  }
+
+  .btn-pause {
+    background: rgba(212, 186, 56, 0.12);
+    color: #d4ba38;
+    padding: 10px 16px;
+    font-size: 0.8rem;
+    letter-spacing: 0.03em;
+  }
+
+  .btn-pause:hover {
+    background: rgba(212, 186, 56, 0.22);
+  }
+
+  .btn-resume {
+    background: var(--accent-glow);
+    color: var(--accent);
+    padding: 10px 16px;
+    font-size: 0.8rem;
+    letter-spacing: 0.03em;
+  }
+
+  .btn-resume:hover {
+    background: rgba(86, 212, 160, 0.25);
+  }
+
+  .btn-delete {
+    background: transparent;
+    color: var(--text-muted);
+    padding: 10px 12px;
+    font-size: 0.8rem;
+  }
+
+  .btn-delete:hover {
+    color: var(--danger);
+    background: var(--danger-dim);
+  }
+
+  /* Export bar */
+  .export-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, var(--bg) 60%, transparent);
+    padding: 24px;
+    padding-bottom: max(24px, env(safe-area-inset-bottom, 24px));
+    display: flex;
+    justify-content: center;
+    z-index: 10;
+    pointer-events: none;
+  }
+
+  .btn-export {
+    pointer-events: all;
+    background: var(--surface-raised);
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+    padding: 12px 28px;
+    font-size: 0.85rem;
+    letter-spacing: 0.02em;
+  }
+
+  .btn-export:hover {
+    color: var(--text);
+    border-color: var(--border-glow);
+    background: var(--surface);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+  }
+
+  .btn-export svg { width: 14px; height: 14px; }
+
+  /* Empty state */
+  .empty-state {
+    text-align: center;
+    padding: 80px 20px;
+    color: var(--text-muted);
+    font-weight: 300;
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  .empty-state .icon {
+    font-size: 2rem;
+    margin-bottom: 12px;
+    opacity: 0.4;
+  }
+
+  /* Responsive */
+  @media (max-width: 560px) {
+    .new-timer-bar {
+      flex-wrap: wrap;
+    }
+    .input-wrapper.project-wrapper {
+      flex: 1 1 100%;
+    }
+    .input-wrapper.name-wrapper {
+      flex: 1 1 auto;
+    }
+    .timer-card {
+      grid-template-columns: 1fr auto;
+      grid-template-rows: auto auto;
+    }
+    .timer-elapsed {
+      grid-column: 1 / -1;
+      text-align: left;
+      font-size: 1.3rem;
+    }
+    .timer-actions {
+      grid-column: 2;
+      grid-row: 1;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <header class="header">
+    <h1><span class="dot"></span> Tempo</h1>
+    <p>Start a timer, name it, stop it, export to CSV.</p>
+  </header>
+
+  <div class="new-timer-bar">
+    <div class="input-wrapper project-wrapper">
+      <input type="text" id="timerProjectInput" placeholder="Project" autocomplete="off" />
+      <div class="autocomplete-list" id="projectAutocomplete"></div>
+    </div>
+    <div class="input-wrapper name-wrapper">
+      <input type="text" id="timerNameInput" placeholder="What are you working on?" autocomplete="off" />
+      <div class="autocomplete-list" id="nameAutocomplete"></div>
+    </div>
+    <button class="btn btn-start" onclick="startTimer()">
+      <svg viewBox="0 0 16 16" fill="currentColor"><polygon points="3,1 13,8 3,15"/></svg>
+      Start
+    </button>
+  </div>
+
+  <div class="timers-list" id="timersList"></div>
+
+  <div class="export-bar">
+    <button class="btn btn-export" onclick="exportCSV()">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M8 2v9M4.5 7.5 8 11l3.5-3.5M3 14h10"/>
+      </svg>
+      Export CSV
+    </button>
+  </div>
+</div>
+
+<script>
+  const timers = [];
+  let tickInterval = null;
+
+  // --- LocalStorage-backed history ---
+  const STORAGE_KEY_PROJECTS = 'tempo_projects';
+  const STORAGE_KEY_NAMES = 'tempo_task_names';
+
+  function loadList(key) {
+    try {
+      const data = JSON.parse(localStorage.getItem(key));
+      if (!Array.isArray(data)) return [];
+      // Only allow strings, strip anything else
+      return data.filter(v => typeof v === 'string');
+    }
+    catch { return []; }
+  }
+
+  function saveToList(key, value) {
+    if (!value) return;
+    const list = loadList(key);
+    // Move to front if exists, otherwise prepend
+    const idx = list.findIndex(v => v.toLowerCase() === value.toLowerCase());
+    if (idx !== -1) list.splice(idx, 1);
+    list.unshift(value);
+    // Cap at 50 entries
+    if (list.length > 50) list.length = 50;
+    localStorage.setItem(key, JSON.stringify(list));
+  }
+
+  // --- Autocomplete engine ---
+  function setupAutocomplete(inputId, dropdownId, storageKey) {
+    const input = document.getElementById(inputId);
+    const dropdown = document.getElementById(dropdownId);
+    let activeIdx = -1;
+
+    function getMatches(query) {
+      const list = loadList(storageKey);
+      if (!query) return list.slice(0, 8); // show recent when focused with empty field
+      const q = query.toLowerCase();
+      return list.filter(item => item.toLowerCase().includes(q)).slice(0, 8);
+    }
+
+    function highlightMatch(text, query) {
+      if (!query) return escapeHtml(text);
+      const idx = text.toLowerCase().indexOf(query.toLowerCase());
+      if (idx === -1) return escapeHtml(text);
+      const before = escapeHtml(text.slice(0, idx));
+      const match = escapeHtml(text.slice(idx, idx + query.length));
+      const after = escapeHtml(text.slice(idx + query.length));
+      return `${before}<span class="match">${match}</span>${after}`;
+    }
+
+    function showDropdown() {
+      const query = input.value.trim();
+      const matches = getMatches(query);
+      activeIdx = -1;
+
+      if (matches.length === 0) {
+        dropdown.classList.remove('visible');
+        return;
+      }
+
+      const hint = query ? 'Suggestions' : 'Recent';
+      dropdown.innerHTML =
+        `<div class="autocomplete-hint">${hint}</div>` +
+        matches.map((item, i) =>
+          `<div class="autocomplete-item" data-index="${i}" data-value="${escapeAttr(item)}">${highlightMatch(item, query)}</div>`
+        ).join('');
+      dropdown.classList.add('visible');
+
+      // Attach click handlers
+      dropdown.querySelectorAll('.autocomplete-item').forEach(el => {
+        el.addEventListener('mousedown', e => {
+          e.preventDefault(); // prevent blur
+          input.value = el.dataset.value;
+          dropdown.classList.remove('visible');
+          input.focus();
+        });
+      });
+    }
+
+    function hideDropdown() {
+      dropdown.classList.remove('visible');
+      activeIdx = -1;
+    }
+
+    function setActive(items) {
+      items.forEach((el, i) => el.classList.toggle('active', i === activeIdx));
+    }
+
+    input.addEventListener('focus', showDropdown);
+    input.addEventListener('input', showDropdown);
+    input.addEventListener('blur', () => setTimeout(hideDropdown, 150));
+
+    input.addEventListener('keydown', e => {
+      const items = dropdown.querySelectorAll('.autocomplete-item');
+      if (!dropdown.classList.contains('visible') || items.length === 0) return;
+
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        activeIdx = (activeIdx + 1) % items.length;
+        setActive(items);
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        activeIdx = activeIdx <= 0 ? items.length - 1 : activeIdx - 1;
+        setActive(items);
+      } else if (e.key === 'Tab' || (e.key === 'Enter' && activeIdx >= 0)) {
+        if (activeIdx >= 0) {
+          e.preventDefault();
+          input.value = items[activeIdx].dataset.value;
+          hideDropdown();
+        }
+      } else if (e.key === 'Escape') {
+        hideDropdown();
+      }
+    });
+  }
+
+  // --- Timer logic ---
+  function generateId() {
+    return Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+  }
+
+  function startTimer() {
+    const nameInput = document.getElementById('timerNameInput');
+    const projectInput = document.getElementById('timerProjectInput');
+    const name = nameInput.value.trim() || `Timer ${timers.length + 1}`;
+    const project = projectInput.value.trim();
+
+    // Save to history
+    saveToList(STORAGE_KEY_PROJECTS, project);
+    saveToList(STORAGE_KEY_NAMES, name);
+
+    nameInput.value = '';
+    nameInput.focus();
+
+    timers.unshift({
+      id: generateId(),
+      name,
+      project,
+      startTime: Date.now(),
+      elapsed: 0,
+      state: 'running'
+    });
+
+    ensureTick();
+    render();
+  }
+
+  function pauseTimer(id) {
+    const timer = timers.find(t => t.id === id);
+    if (timer && timer.state === 'running') {
+      timer.elapsed += Date.now() - timer.startTime;
+      timer.state = 'paused';
+    }
+    ensureTick();
+    render();
+  }
+
+  function resumeTimer(id) {
+    const timer = timers.find(t => t.id === id);
+    if (timer && timer.state === 'paused') {
+      timer.startTime = Date.now();
+      timer.state = 'running';
+    }
+    ensureTick();
+    render();
+  }
+
+  function stopTimer(id) {
+    const timer = timers.find(t => t.id === id);
+    if (timer && timer.state !== 'stopped') {
+      if (timer.state === 'running') {
+        timer.elapsed += Date.now() - timer.startTime;
+      }
+      timer.state = 'stopped';
+    }
+    ensureTick();
+    render();
+  }
+
+  function deleteTimer(id) {
+    const idx = timers.findIndex(t => t.id === id);
+    if (idx !== -1) timers.splice(idx, 1);
+    ensureTick();
+    render();
+  }
+
+  function tick() {
+    timers.forEach(timer => {
+      if (timer.state === 'running') {
+        const el = document.querySelector(`[data-elapsed="${timer.id}"]`);
+        if (el) el.textContent = formatTime(getElapsed(timer));
+      }
+    });
+  }
+
+  function ensureTick() {
+    const hasRunning = timers.some(t => t.state === 'running');
+    if (hasRunning && !tickInterval) {
+      tickInterval = setInterval(tick, 100);
+    } else if (!hasRunning && tickInterval) {
+      clearInterval(tickInterval);
+      tickInterval = null;
+    }
+  }
+
+  function getElapsed(timer) {
+    if (timer.state === 'running') {
+      return timer.elapsed + (Date.now() - timer.startTime);
+    }
+    return timer.elapsed;
+  }
+
+  function formatTime(ms) {
+    const totalSeconds = Math.floor(ms / 1000);
+    const h = Math.floor(totalSeconds / 3600);
+    const m = Math.floor((totalSeconds % 3600) / 60);
+    const s = totalSeconds % 60;
+    const pad = n => String(n).padStart(2, '0');
+    return `${pad(h)}:${pad(m)}:${pad(s)}`;
+  }
+
+  function formatTimeCSV(ms) {
+    const totalSeconds = Math.floor(ms / 1000);
+    const h = Math.floor(totalSeconds / 3600);
+    const m = Math.floor((totalSeconds % 3600) / 60);
+    const s = totalSeconds % 60;
+    const pad = n => String(n).padStart(2, '0');
+    return `${pad(h)}:${pad(m)}:${pad(s)}`;
+  }
+
+  function render() {
+    const list = document.getElementById('timersList');
+
+    if (timers.length === 0) {
+      list.innerHTML = `
+        <div class="empty-state">
+          <div class="icon">⏱</div>
+          Name a task above and hit Start to begin tracking time.
+        </div>`;
+      return;
+    }
+
+    list.innerHTML = timers.map(timer => {
+      const elapsed = getElapsed(timer);
+      const stateClass = safeState(timer.state);
+
+      let statusDot;
+      if (stateClass === 'running') statusDot = '<span class="live-dot"></span> Running';
+      else if (stateClass === 'paused') statusDot = '<span class="paused-dot"></span> Paused';
+      else statusDot = '<span class="stopped-dot"></span> Stopped';
+
+      const projectTag = timer.project
+        ? `<span class="timer-project">${escapeHtml(timer.project)}</span>`
+        : '';
+
+      const safeId = escapeAttr(timer.id);
+
+      let actions = '';
+      if (stateClass === 'running') {
+        actions = `
+          <button class="btn btn-pause" data-action="pause" data-timer-id="${safeId}" title="Pause">❚❚</button>
+          <button class="btn btn-stop" data-action="stop" data-timer-id="${safeId}">Stop</button>`;
+      } else if (stateClass === 'paused') {
+        actions = `
+          <button class="btn btn-resume" data-action="resume" data-timer-id="${safeId}" title="Resume">▶</button>
+          <button class="btn btn-stop" data-action="stop" data-timer-id="${safeId}">Stop</button>`;
+      } else {
+        actions = `<button class="btn btn-delete" data-action="delete" data-timer-id="${safeId}">✕</button>`;
+      }
+
+      return `
+        <div class="timer-card ${stateClass}" data-id="${safeId}">
+          <div class="timer-info">
+            ${projectTag}
+            <div class="timer-name">${escapeHtml(timer.name)}</div>
+            <div class="timer-status">${statusDot}</div>
+          </div>
+          <div class="timer-elapsed" data-elapsed="${safeId}">${formatTime(elapsed)}</div>
+          <div class="timer-actions">
+            ${actions}
+          </div>
+        </div>`;
+    }).join('');
+  }
+
+  function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  // Escape for safe use inside HTML attributes (double-quoted)
+  function escapeAttr(str) {
+    return str
+      .replace(/&/g, '&amp;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/`/g, '&#96;');
+  }
+
+  // Whitelist timer states to prevent class injection
+  function safeState(state) {
+    return ['running', 'paused', 'stopped'].includes(state) ? state : 'stopped';
+  }
+
+  function exportCSV() {
+    const stopped = timers.filter(t => t.state === 'stopped');
+    if (stopped.length === 0) {
+      alert('No stopped timers to export. Stop a timer first.');
+      return;
+    }
+
+    const escCSV = v => v.includes(',') || v.includes('"') ? `"${v.replace(/"/g, '""')}"` : v;
+    const rows = [['Project', 'Name', 'Elapsed Time']];
+    stopped.forEach(t => {
+      rows.push([escCSV(t.project || ''), escCSV(t.name), formatTimeCSV(t.elapsed)]);
+    });
+
+    const csv = rows.map(r => r.join(',')).join('\n');
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    const date = new Date().toISOString().slice(0, 10);
+    a.download = `time-entries-${date}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  // --- Event delegation for timer actions (avoids inline onclick handlers) ---
+  document.getElementById('timersList').addEventListener('click', e => {
+    const btn = e.target.closest('[data-action]');
+    if (!btn) return;
+    const id = btn.dataset.timerId;
+    const action = btn.dataset.action;
+    if (action === 'pause') pauseTimer(id);
+    else if (action === 'resume') resumeTimer(id);
+    else if (action === 'stop') stopTimer(id);
+    else if (action === 'delete') deleteTimer(id);
+  });
+
+  // --- Init ---
+  setupAutocomplete('timerProjectInput', 'projectAutocomplete', STORAGE_KEY_PROJECTS);
+  setupAutocomplete('timerNameInput', 'nameAutocomplete', STORAGE_KEY_NAMES);
+
+  // Allow Enter key to start timer (only when no autocomplete item is active)
+  document.getElementById('timerNameInput').addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !document.querySelector('#nameAutocomplete .autocomplete-item.active')) startTimer();
+  });
+  document.getElementById('timerProjectInput').addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !document.querySelector('#projectAutocomplete .autocomplete-item.active')) startTimer();
+  });
+
+  render();
+
+  // --- PWA: Service Worker Registration ---
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./sw.js').then(reg => {
+      console.log('Tempo SW registered:', reg.scope);
+    }).catch(err => {
+      console.warn('Tempo SW registration failed:', err);
+    });
+  }
+
+  // --- PWA: Install Prompt ---
+  let deferredPrompt = null;
+
+  window.addEventListener('beforeinstallprompt', e => {
+    e.preventDefault();
+    deferredPrompt = e;
+    showInstallBanner();
+  });
+
+  function showInstallBanner() {
+    // Don't show if already installed
+    if (window.matchMedia('(display-mode: standalone)').matches) return;
+
+    const banner = document.createElement('div');
+    banner.id = 'installBanner';
+    banner.innerHTML = `
+      <span>Install <strong>Tempo</strong> as an app for quick access</span>
+      <button class="btn" id="installBtn" style="background:var(--accent);color:#0c0e13;padding:8px 16px;font-size:0.8rem;">Install</button>
+      <button class="btn" id="dismissBtn" style="background:transparent;color:var(--text-muted);padding:8px 12px;font-size:0.8rem;">✕</button>
+    `;
+    banner.style.cssText = `
+      position:fixed;top:0;left:0;right:0;z-index:100;
+      background:var(--surface-raised);border-bottom:1px solid var(--border);
+      padding:12px 20px;display:flex;align-items:center;gap:12px;
+      font-size:0.85rem;color:var(--text-dim);
+      animation:card-in 0.35s cubic-bezier(0.22,1,0.36,1);
+      padding-top:max(12px, env(safe-area-inset-top, 12px));
+    `;
+    document.body.appendChild(banner);
+
+    document.getElementById('installBtn').addEventListener('click', async () => {
+      if (!deferredPrompt) return;
+      deferredPrompt.prompt();
+      const result = await deferredPrompt.userChoice;
+      deferredPrompt = null;
+      banner.remove();
+    });
+
+    document.getElementById('dismissBtn').addEventListener('click', () => {
+      banner.remove();
+    });
+  }
+</script>
+
+</body>
+</html>
